@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="nuGet" xmlns="http://nant.sf.net/release/0.85/nant.xsd">
+
+  <loadtasks assembly = "${tools.path}\Macrodef\macrodef.dll" />
+  <property name="nuget.path" value="${tools.path}\Nuget" />
+
+
+  <if test="${property::exists('nuGet.Macros.loaded')==false}" >
+
+    <macrodef name="nuget.pack">
+      <attributes>
+        <attribute name="nuSpecFile" />
+        <attribute name="workingDir" />
+        <attribute name="version"    />
+        <attribute name="nuGetPath"  default="${nuget.path}" />
+      </attributes>
+      <sequential>
+        <exec basedir="${nuGetPath}" workingdir="${workingDir}" program="NuGet.exe">
+          <arg value="pack" />
+          <arg value="${nuSpecFile}" />
+          <arg value="-Version" />
+          <arg value="${version}" />
+        </exec>
+      </sequential>
+    </macrodef >
+
+    <macrodef name="nuget.push">
+      <attributes>
+        <attribute name="nuPkgFile" />
+        <attribute name="workingDir" />
+        <attribute name="nuGetPath" default="${nuget.path}" />
+        <attribute name="source"    default="${nuget.source}"/>
+        <attribute name="apiKey"    default="${nuget.apiKey}"/>
+        <attribute name="CruiseOnly" default="true" />
+      </attributes>
+      <sequential>
+        <property name="run" value="true" />
+        <if test="${CruiseOnly}">
+          <property name="run" value="${environment::variable-exists('CRUISE_PIPELINE_LABEL')}" />
+          <echo message="Only running if in cruise environment run : ${run}" />
+        </if>
+        <if test="${run}">
+          <exec basedir="${nuGetPath}" workingdir="${workingDir}" program="NuGet.exe">
+            <arg value="push" />
+            <arg value="${nuPkgFile}" />
+            <arg value="${apiKey}" />
+            <arg value="-Source" />
+            <arg value="${source}" />
+          </exec>
+        </if>
+      </sequential>
+    </macrodef >
+
+    <macrodef name="nuget.install">
+      <attributes>
+        <attribute name="workingDir"  default="."/>
+        <attribute name="source"  		default="${nuget.source}"/>
+        <attribute name="nuGetPath" 	default="${nuget.path}" />
+        <attribute name="file"  		  default="packages.config"/>
+        <attribute name="outputPath"  default="packages"/>
+      </attributes>
+      <sequential>
+        <exec basedir="${nuGetPath}" workingdir="${workingDir}" program="NuGet.exe">
+          <arg value="install" />
+          <arg value="packages.config" />
+          <arg value="-ExcludeVersion" />
+          <arg value="-OutputDirectory" />
+          <arg value="${outputPath}" />
+          <arg value="-Source" />
+          <arg value="${source}" />
+        </exec>
+      </sequential>
+    </macrodef >
+  </if >
+  <property name ="nuGet.Macros.loaded" value="true"/>
+  <echo message ="nuGet.Macros.loaded : ${nuGet.Macros.loaded}"/>
+</project>

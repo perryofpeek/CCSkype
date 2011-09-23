@@ -1,0 +1,50 @@
+<project name="MSBuildTasks" xmlns="http://nant.sf.net/release/0.85/nant.xsd">
+
+  <loadtasks assembly = "${tools.path}\Macrodef\macrodef.dll" />
+
+  <target name ="MSbuild.copyFiles">
+    <property name ="programFiles.path" value="${environment::get-variable('ProgramFiles')}"/>
+    <copy todir ="${programFiles.path}\MSBuild" includeemptydirs ="true"  verbose ="true" overwrite ="false" failonerror="false">
+      <fileset basedir ="${tools.path}\MSBuild" >
+        <include name="**/*.*" />
+      </fileset>
+    </copy>
+  </target>
+
+  <if test="${property::exists('MSBuildTasks.Macros.loaded')==false}" >
+
+    <macrodef name="msbuild.clean">
+      <attributes>
+        <attribute name="configuration" default="Debug" />
+        <attribute name="solution" />
+        <attribute name="compile.msBuild.path" default="C:\WINDOWS\Microsoft.NET\Framework\v3.5" />
+        <attribute name="compile.msBuild.verbosity" default="n" />
+        <!-- q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic] -->
+      </attributes>
+      <sequential>
+        <exec basedir="${compile.msBuild.path}"
+              program="msbuild.exe"
+              commandline=" /nologo /v:${compile.msBuild.verbosity} /p:Configuration=${configuration} /t:Clean ${solution} " />
+      </sequential>
+    </macrodef >
+
+    <macrodef name="msbuild.compile">
+      <attributes>
+        <attribute name="target" />
+        <attribute name="configuration" default="Debug" />
+        <attribute name="solution" />
+      </attributes>
+      <sequential>
+        <property name="compile.msBuild.path" value="C:\WINDOWS\Microsoft.NET\Framework\v3.5" />
+        <property name="compile.msBuild.verbosity" value="n" />
+        <echo message="Building ${solution} with target ${target} and configuration ${configuration}"/>
+        <exec basedir="${compile.msBuild.path}"
+              program="msbuild.exe"
+              commandline=" /nologo /v:${compile.msBuild.verbosity} /p:Configuration=${configuration} /t:${target} ${solution} " />
+      </sequential>
+    </macrodef >
+  </if >
+  <property name ="MSBuildTasks.Macros.loaded" value="true"/>
+  <echo message ="MSBuildTasks.Macros.loaded : ${MSBuildTasks.Macros.loaded}"/>
+
+</project>

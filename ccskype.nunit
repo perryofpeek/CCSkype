@@ -1,0 +1,9 @@
+<NUnitProject>
+  <Settings activeconfig="Debug" />
+  <Config name="Debug" binpathtype="Auto">    
+    <assembly path="ccskype.UnitTests.dll" />    
+  </Config>
+  <Config name="Release" binpathtype="Auto" >
+    <assembly path="ccskype.UnitTests.dll" />
+  </Config>
+</NUnitProject>

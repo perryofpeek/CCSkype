@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="ccskype" default="FullBuild" basedir="." xmlns="http://nant.sf.net/release/0.85/nant.xsd">
+
+  <property name="tools.path" value = "tools" readonly ="true" />
+  <property name="commonBuild.path" value="Build" readonly ="true" />
+  <property name="commonDeployment.path" value="${tools.path}\utilities\Deployment" readonly ="true" />
+  <property name ="Project.Name" value ="ccskype"/>
+  <property name ="Solution.Name" value ="${Project.Name}.sln"/>
+  <property name="nunit.project" value ="${Project.Name}.nunit" readonly ="true"/>
+  <property name="DeployUnit.Path" value="DeploymentUnit\${Project.Name}" />
+  <property name="DeploymentUnit.ZipFileName" value="${Project.Name}.zip" />
+  <property name ="VsProjects.Path" value ="."/>
+  <property name="buildArtifacts.path" value = "Output" />
+  <property name="nuget.path" value="${tools.path}\Nuget" />
+  <property name="nuget.apiKey" value="abcd" />
+  <property name="nuget.source" value="https://go.microsoft.com/fwlink/?LinkID=206669" />
+  <property name="nunit.console" value="packages\NUnit\tools\nunit-console-x86.exe" readonly ="true"/>
+  <property name="nunit.reports" value="${buildArtifacts.path}\TestReports" readonly ="true"/>
+  <property name="nunit.workingDir" value ="${buildArtifacts.path}\NUnit" readonly ="true"/>
+  <property name="build.configuration" value="Release" readonly="true" />
+
+  <include buildfile ="${commonBuild.path}\MSBuildTasks.build" failonerror ="true"/>
+  <include buildfile ="${commonBuild.path}\NUnit.build" />
+  <include buildfile ="${commonBuild.path}\nugetMacros.build" />
+
+  <loadtasks assembly = "${tools.path}\nantContrib\bin\NAnt.Contrib.Tasks.dll" />
+
+  <!-- Level 1 -->
+  <target name = "Compile" depends ="packages.get,Compile.code" description ="Compiles the code only "/>
+  <target name = "Clean"  depends ="Clean.All" description = "Removes previouse build data"/>
+  <target name = "Test" depends="UnitTests.Run" description ="Runs all the unit tests"/>
+  <target name = "FullBuild" depends="Clean, Compile, UnitTests.Run, DeploymentUnit " description ="Compiles and runs all the unit tests and creates a deployment unit"/>
+  <target name = "DeploymentUnit" depends ="DeploymentUnit.CreatePackage" description ="Creates a deployment unit files" />
+
+  <!-- Level 2 -->
+  <target name ="Compile.code"  depends="packages.get">
+    <msbuild.compile  target="Build" configuration="${build.configuration}" solution="${Solution.Name}" />
+  </target>
+
+  <target name ="UnitTests.Run">
+    <nunit.run projectName="${nunit.project}"
+               nunitProjectPath="."
+               nunitWorkingDir="${nunit.workingDir}"
+               ExcludeCatagory="no"
+               reportOutputPath="${nunit.reports}"
+               srcPath="${VsProjects.Path}"
+               nunitConsole="${nunit.console}"
+               />
+  </target>
+
+  <target name="Clean.All">
+    <nunit.clean nunitWorkingDir="${nunit.workingDir}" reportOutputPath="${nunit.reports}" />
+    <msbuild.clean  solution="${Solution.Name}" />
+    <deploymentUnit.Clean buildArtifactsPath="${DeployUnit.Path}" />
+    <delete dir="packages" failonerror="false" />
+  </target>
+
+  <target name="DeploymentUnit.CreatePackage" depends="DeploymentUnit.Create">
+  </target>
+
+  <target name="DeploymentUnit.Create" >
+    <mkdir dir ="${DeployUnit.Path}"/>
+    <!--<ilmerge
+     primary="${VsProjects.Path}\${Project.Name}\src\${Project.Name}\bin\${build.configuration}\donkey.exe"
+     outputfile="${DeployUnit.Path}\${Project.Name}.exe"
+     version="${version}"
+     program="${ilmerge.path}"
+     target="exe"
+     failonerror="true"
+      >
+      <assemblies>
+        <include name="${VsProjects.Path}\${Project.Name}\src\${Project.Name}\bin\${build.configuration}\References.Repository.dll" />
+        <include name="${VsProjects.Path}\${Project.Name}\src\${Project.Name}\bin\${build.configuration}\log4net.dll" />
+      </assemblies>
+    </ilmerge >-->
+  </target >
+
+  <target name="packages.get">
+    <nuget.install />
+  </target>
+
+  <macrodef name="deploymentUnit.Clean" >
+    <attributes>
+      <attribute name="buildArtifactsPath" />
+    </attributes>
+    <sequential>
+      <delete dir ="${buildArtifactsPath}" includeemptydirs ="true" />
+    </sequential>
+  </macrodef >
+
+</project>

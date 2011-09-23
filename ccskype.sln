@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0C460C81-6DA3-4A9A-9210-356B3B65E3A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B998353E-2CFB-4E33-9C96-DF2DEFB8AAA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCSkype", "src\ClassLibrary1\CCSkype.csproj", "{C67D3F92-072A-4405-9AD4-B97E27AA42ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D072A4F5-DE59-4CF8-9183-AB3FDF46BBDC}"
+	ProjectSection(SolutionItems) = preProject
+		build.bat = build.bat
+		ccskype.nunit = ccskype.nunit
+		component.build = component.build
+		build\nugetMacros.build = build\nugetMacros.build
+		packages.config = packages.config
+		UserStories.txt = UserStories.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCSkype.UnitTests", "test\CCSkype.UnitTests\CCSkype.UnitTests.csproj", "{E10EE1CB-4296-4575-BA91-5118B66835DA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C67D3F92-072A-4405-9AD4-B97E27AA42ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C67D3F92-072A-4405-9AD4-B97E27AA42ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C67D3F92-072A-4405-9AD4-B97E27AA42ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C67D3F92-072A-4405-9AD4-B97E27AA42ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E10EE1CB-4296-4575-BA91-5118B66835DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E10EE1CB-4296-4575-BA91-5118B66835DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E10EE1CB-4296-4575-BA91-5118B66835DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E10EE1CB-4296-4575-BA91-5118B66835DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C67D3F92-072A-4405-9AD4-B97E27AA42ED} = {0C460C81-6DA3-4A9A-9210-356B3B65E3A5}
+		{E10EE1CB-4296-4575-BA91-5118B66835DA} = {B998353E-2CFB-4E33-9C96-DF2DEFB8AAA1}
+	EndGlobalSection
+EndGlobal

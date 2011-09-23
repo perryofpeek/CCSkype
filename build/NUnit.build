@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="NUnit" xmlns="http://nant.sf.net/release/0.85/nant.xsd">
+
+  <property name ="NUnit.loaded" value="true"/>
+
+  <loadtasks assembly = "${tools.path}\Macrodef\macrodef.dll" />
+
+  <if test="${property::exists('NUnit.Macros.loaded')==false}" >
+
+    <macrodef name="nunit.clean">
+      <attributes>
+        <attribute name="nunitWorkingDir" />
+        <attribute name="reportOutputPath" />
+      </attributes>
+      <sequential>
+        <delete dir ="${nunitWorkingDir}" includeemptydirs ="true" />
+        <delete dir ="${reportOutputPath}" includeemptydirs ="true" />
+      </sequential>
+    </macrodef >
+
+    <macrodef name="nunit.run">
+      <attributes>
+        <attribute name="projectName" />
+        <attribute name="nunitWorkingDir" />
+        <attribute name="ExcludeCatagory" default="none"/>
+        <attribute name="reportOutputPath" />
+        <attribute name="srcPath" />
+        <attribute name="nunitConsole" />
+        <attribute name="nunitProjectPath" />
+      </attributes>
+      <sequential>
+        <mkdir dir="${nunitWorkingDir}" unless="${directory::exists(nunitWorkingDir)}" />
+        <mkdir dir="${reportOutputPath}" unless="${directory::exists(reportOutputPath)}" />
+        <property name="nunitCategory" value="/exclude:${ExcludeCatagory}"/>
+        <property name="nunitResultXml" value="${reportOutputPath}\${projectName}.UnitTests.xml" />
+        <echo message ="Copying assemblies from ${srcPath} to ${nunitWorkingDir}" />
+        <copy overwrite ="true" todir ="${nunitWorkingDir}" flatten="true" >
+          <fileset basedir ="${srcPath}">
+            <include name ="./**/Bin/Release/*.dll"/>
+            <include name ="./**/Bin/Release/*.sdf"/>
+            <include name ="./**/Bin/Release/*.dll.config"/>
+            <include name ="./**/Bin/Release/*.exe"/>
+            <include name ="./**/Bin/Release/*.exe.config"/>
+            <include name ="./**/Bin/Release/*.cfg.xml"/>
+            <include name ="./**/Bin/Release/*.xml"/>
+            <include name ="./*/Bin/Release/**/*.xml"/>
+            <include name ="./*UnitTests/Bin/Release/**/*.html"/>			
+			      <include name ="./**/Bin/Release/*.txt"/>
+          </fileset>
+        </copy>
+        <echo message="##### copying Test Data from: ${srcPath}/Test to ${nunitWorkingDir}/TestData " />
+
+        <foreach item="Folder" in="${srcPath}\Test" property="foldername">
+          <echo message="${foldername}" />
+          <copy overwrite ="true" todir ="${nunitWorkingDir}" flatten="false">
+            <fileset basedir ="${foldername}\Bin\Release\">
+              <include name="**\*.*"/>
+            </fileset>
+          </copy>
+        </foreach>
+
+
+        <copy overwrite ="true" todir ="${nunitWorkingDir}" flatten="false" >
+          <fileset basedir ="${srcPath}\Test">
+            <include name="*\Bin\Release\**\*.*"/>
+          </fileset>
+        </copy>
+        <echo message="##### copying Test Data from: ${srcPath} to ${nunitWorkingDir}/TestData " />
+        <copy overwrite ="true" todir ="${nunitWorkingDir}/TestData" flatten="true" >
+          <fileset basedir ="${srcPath}">
+            <include name="**/Bin/Release/TestData/*.*"/>
+          </fileset>
+        </copy>
+        <echo message ="Copying NUnit project file to working directory" />
+        <copy overwrite ="true" todir ="${nunitWorkingDir}" flatten="true" >
+          <fileset basedir ="${nunitProjectPath}">
+            <include name ="${projectName}"/>
+            <include name ="${projectName}.config"/>
+            <include name ="${string::replace(projectName, '.nunit', '.config')}"/>
+          </fileset>
+        </copy>
+        <trycatch>
+          <try>
+            <echo message="NUnit Categories: ${ExcludeCatagory}"/>
+            <exec program="${nunitConsole}" workingdir="${nunitWorkingDir}" >
+              <arg value="${projectName}"/>
+              <arg value="/xml:${projectName}.xml" />
+              <arg value="${nunitCategory}" />
+              <arg value="/nologo" />
+              <arg value="/noshadow" />
+            </exec>
+          </try>
+          <finally>
+            <echo message ="Generating NUnit project Report" />
+            <nunit2report todir="${reportOutputPath}" >
+              <fileset>
+                <include name="${nunitWorkingDir}/${projectName}.xml" />
+              </fileset>
+            </nunit2report>
+          </finally>
+        </trycatch>
+      </sequential>
+    </macrodef>
+  </if >
+  <property name ="NUnit.Macros.loaded" value="true"/>
+  <echo message ="NUnit.Macros.loaded : ${NUnit.Macros.loaded}"/>
+</project>
