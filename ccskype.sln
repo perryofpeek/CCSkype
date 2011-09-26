@@ -5,7 +5,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0C460C81-6DA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B998353E-2CFB-4E33-9C96-DF2DEFB8AAA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCSkype", "src\ClassLibrary1\CCSkype.csproj", "{C67D3F92-072A-4405-9AD4-B97E27AA42ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCSkype", "src\CCSkype\CCSkype.csproj", "{C67D3F92-072A-4405-9AD4-B97E27AA42ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D072A4F5-DE59-4CF8-9183-AB3FDF46BBDC}"
 	ProjectSection(SolutionItems) = preProject
@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCSkype.UnitTests", "test\CCSkype.UnitTests\CCSkype.UnitTests.csproj", "{E10EE1CB-4296-4575-BA91-5118B66835DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCSkype.AcceptTests", "test\CCSkype.AcceptTests\CCSkype.AcceptTests.csproj", "{D9F31583-704E-436E-ACE2-9001444BC2BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E10EE1CB-4296-4575-BA91-5118B66835DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E10EE1CB-4296-4575-BA91-5118B66835DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E10EE1CB-4296-4575-BA91-5118B66835DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9F31583-704E-436E-ACE2-9001444BC2BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9F31583-704E-436E-ACE2-9001444BC2BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9F31583-704E-436E-ACE2-9001444BC2BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9F31583-704E-436E-ACE2-9001444BC2BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,5 +46,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C67D3F92-072A-4405-9AD4-B97E27AA42ED} = {0C460C81-6DA3-4A9A-9210-356B3B65E3A5}
 		{E10EE1CB-4296-4575-BA91-5118B66835DA} = {B998353E-2CFB-4E33-9C96-DF2DEFB8AAA1}
+		{D9F31583-704E-436E-ACE2-9001444BC2BA} = {B998353E-2CFB-4E33-9C96-DF2DEFB8AAA1}
 	EndGlobalSection
 EndGlobal

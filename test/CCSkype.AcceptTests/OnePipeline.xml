@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+  <Pipeline name="Trunk_QA_Env_PCIDSS">
+    <users>      
+      <user skypeName="testgogroups" />
+      <!-- <user skypeName="owainfperry" />
+      <user skypeName="owainfperry" />-->
+    </users>
+  </Pipeline>
+</Configuration>

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E10EE1CB-4296-4575-BA91-5118B66835DA}</ProjectGuid>
+    <ProjectGuid>{D9F31583-704E-436E-ACE2-9001444BC2BA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CCSkype.UnitTests</RootNamespace>
-    <AssemblyName>CCSkype.UnitTests</AssemblyName>
+    <RootNamespace>CCSkype.AcceptTests</RootNamespace>
+    <AssemblyName>CCSkype.AcceptTests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -53,24 +53,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CCSkype\With_process.cs" />
-    <Compile Include="CCTray\With_Load.cs" />
-    <Compile Include="configuration\With_load.cs" />
-    <Compile Include="endPoint\With_GetXml.cs" />
-    <Compile Include="httpGetTests.cs" />
-    <Compile Include="Loader\With_Load.cs" />
-    <Compile Include="MessengerClient\With_AllKnownUsers.cs" />
-    <Compile Include="ProjectWatcher\With_Message.cs" />
+    <Compile Include="End_To_End_Tests.cs" />
+    <Compile Include="Mocked_End_To_End_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MessengerClient\With_SendMessage.cs" />
-    <Compile Include="User_Groups\With_Message.cs" />
-    <Compile Include="User_Group\With_name.cs" />
-    <Compile Include="User_Group\With_Send.cs" />
-    <Compile Include="User\With_User.cs" />
-    <Compile Include="With_cctray.cs" />
-    <Compile Include="With_Get.cs" />
-    <Compile Include="With_Project_constructor.cs" />
-    <Compile Include="User_Groups\With_IsMonitoring.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CCSkype\CCSkype.csproj">
+      <Project>{C67D3F92-072A-4405-9AD4-B97E27AA42ED}</Project>
+      <Name>CCSkype</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="cctray.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UnknownUserPipeline.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="OnePipeline.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SKYPE4COMLib">
@@ -81,23 +83,6 @@
       <WrapperTool>tlbimp</WrapperTool>
       <Isolated>False</Isolated>
     </COMReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\CCSkype\CCSkype.csproj">
-      <Project>{C67D3F92-072A-4405-9AD4-B97E27AA42ED}</Project>
-      <Name>CCSkype</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TestData\cctray.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\config\OnePipeline.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helper\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
