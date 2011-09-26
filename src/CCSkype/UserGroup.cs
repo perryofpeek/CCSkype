@@ -4,23 +4,23 @@ namespace CCSkype
 {
     public class UserGroup : IUserGroup
     {
-        private readonly ISkypeClient _skypeClient;
+        private readonly IMessengerClient _messengerClient;
 
         private readonly List<User> _users;
         
         public string Name { get; private set; }
 
-        public UserGroup(ISkypeClient skypeClient, List<User> users, string name)
+        public UserGroup(IMessengerClient messengerClient, List<User> users, string name)
         {
             Name = name;
-            _skypeClient = skypeClient;
+            _messengerClient = messengerClient;
             _users = users;
         }
 
         public void Send(string message)
         {
-            _skypeClient.SetUserList(_users);
-            _skypeClient.SendMessage(message);            
+            _messengerClient.SetUserList(_users);
+            _messengerClient.SendMessage(message);            
         }
     }
 }

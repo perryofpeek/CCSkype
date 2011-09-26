@@ -4,7 +4,6 @@ namespace CCSkype
     {
         private readonly ICcTray _cctray;
 
-
         public CcSkype(ICcTray cctray)
         {
             _cctray = cctray;

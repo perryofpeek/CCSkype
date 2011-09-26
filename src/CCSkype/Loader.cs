@@ -5,11 +5,11 @@ namespace CCSkype
 {
     public class Loader
     {
-        private readonly ISkypeClient _iSkypeClient;
+        private readonly IMessengerClient _iMessengerClient;
 
-        public Loader(ISkypeClient iSkypeClient)
+        public Loader(IMessengerClient iMessengerClient)
         {
-            _iSkypeClient = iSkypeClient;
+            _iMessengerClient = iMessengerClient;
         }
 
         public IUserGroups GetUserGroups(Configuration configuration)
@@ -17,7 +17,7 @@ namespace CCSkype
             IUserGroups userGroups = new UserGroups();
             foreach (var pipeline in configuration.Items)
             {                              
-                userGroups.Add(new UserGroup(_iSkypeClient, GetUserList(pipeline), pipeline.name));
+                userGroups.Add(new UserGroup(_iMessengerClient, GetUserList(pipeline), pipeline.name));
             }
             return userGroups;
         }
