@@ -1,6 +1,6 @@
 namespace CCSkype.SkypeWrapper
 {
-    public class Chat
+    public class Chat : IChat
     {
         private readonly SKYPE4COMLib.Chat _chat;
 

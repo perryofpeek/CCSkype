@@ -1,6 +1,6 @@
 namespace CCSkype.SkypeWrapper
 {
-    public class Client
+    public class Client : IClient
     {
         private readonly SKYPE4COMLib.Client _client;
 

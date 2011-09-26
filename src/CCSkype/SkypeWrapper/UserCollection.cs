@@ -1,6 +1,6 @@
 ﻿namespace CCSkype.SkypeWrapper
 {
-    public class UserCollection
+    public class UserCollection : IUserCollection
     {
         private readonly SKYPE4COMLib.UserCollection _userCollection;
 

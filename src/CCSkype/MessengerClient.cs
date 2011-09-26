@@ -6,11 +6,18 @@ namespace CCSkype
 {
     public class MessengerClient : IMessengerClient 
     {
-        private SkypeWrapper.Skype _skype;
+        private readonly SkypeWrapper.ISkype _skype;
+        private SkypeWrapper.IUserCollection _userCollection;
 
-        public MessengerClient(SkypeWrapper.Skype skype)
+        public MessengerClient(SkypeWrapper.ISkype skype)
         {
             _skype = skype;
+        }
+
+        public void SendMessage(string message,SkypeWrapper.IUserCollection userCollection)
+        {
+            _userCollection = userCollection;
+            SendMessage(message);
         }
 
         public void SendMessage(string message)
@@ -24,13 +31,11 @@ namespace CCSkype
 
         private void StartSkype()
         {
-            if (_skype.Skype_Client().IsRunning() == false)
+            if (_skype.SkypeClient().IsRunning() == false)
             {
-                _skype.Skype_Client().Start(false, true);
+                _skype.SkypeClient().Start(false, true);
             }
-        }
-
-        private UserCollection _userCollection;
+        }        
 
         public void SetUserList(List<User> users)
         {
