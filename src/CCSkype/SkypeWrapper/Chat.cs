@@ -26,7 +26,7 @@ namespace CCSkype.SkypeWrapper
 
         public void SendMessage(string message)
         {
-            _chat.Leave();
+            _chat.SendMessage(message);
         }
     }
 }

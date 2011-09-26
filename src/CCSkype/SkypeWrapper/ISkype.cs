@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace CCSkype.SkypeWrapper
 {
     public interface ISkype
@@ -6,6 +8,8 @@ namespace CCSkype.SkypeWrapper
 
         IChat CreateChatMultiple(IUserCollection userCollection);
         
-        User Get_User(string username);
+        IUser GetUser(string username);
+
+        List<string> GetUsers();
     }
 }

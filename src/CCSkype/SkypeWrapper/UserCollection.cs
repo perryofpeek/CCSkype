@@ -1,4 +1,7 @@
-﻿namespace CCSkype.SkypeWrapper
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace CCSkype.SkypeWrapper
 {
     public class UserCollection : IUserCollection
     {
@@ -14,8 +17,13 @@
             get { return _userCollection; }
         }
 
-        public void Add(User user)
-        {            
+        public List<string> GetUsers()
+        {
+            return (from SKYPE4COMLib.User user in _userCollection select user.Handle).ToList();
+        }
+
+        public void Add(IUser user)
+        {
             _userCollection.Add(user.GetUser());
         }
     }

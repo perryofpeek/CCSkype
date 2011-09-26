@@ -60,7 +60,7 @@
     <Compile Include="Interfaces\IUserGroup.cs" />
     <Compile Include="Interfaces\IUserGroups.cs" />
     <Compile Include="Loader.cs" />
-    <Compile Include="Pipeline.cs" />
+    <Compile Include="Dto\Pipeline.cs" />
     <Compile Include="Dto\Project.cs" />
     <Compile Include="Projectwatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +68,7 @@
     <Compile Include="SkypeWrapper\IChat.cs" />
     <Compile Include="SkypeWrapper\IClient.cs" />
     <Compile Include="SkypeWrapper\ISkype.cs" />
+    <Compile Include="SkypeWrapper\IUser.cs" />
     <Compile Include="SkypeWrapper\IUserCollection.cs" />
     <Compile Include="SkypeWrapper\User.cs" />
     <Compile Include="SkypeWrapper\Skype.cs" />
@@ -75,9 +76,10 @@
     <Compile Include="MessengerClient.cs" />
     <Compile Include="SkypeMessenger.cs" />
     <Compile Include="SkypeWrapper\UserCollection.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Dto\User.cs" />
     <Compile Include="UserGroup.cs" />
     <Compile Include="UserGroups.cs" />
+    <Compile Include="UserNotKnowException.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SKYPE4COMLib">

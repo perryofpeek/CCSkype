@@ -1,32 +1,43 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SKYPE4COMLib;
 using UserCollection = CCSkype.SkypeWrapper.UserCollection;
 
 namespace CCSkype
 {
-    public class MessengerClient : IMessengerClient 
+    public class MessengerClient : IMessengerClient
     {
         private readonly SkypeWrapper.ISkype _skype;
         private SkypeWrapper.IUserCollection _userCollection;
 
-        public MessengerClient(SkypeWrapper.ISkype skype)
+        public MessengerClient(SkypeWrapper.ISkype skype, SkypeWrapper.IUserCollection userCollection)
         {
             _skype = skype;
+            _userCollection = userCollection;
         }
 
-        public void SendMessage(string message,SkypeWrapper.IUserCollection userCollection)
+        public void SendMessage(string message, SkypeWrapper.IUserCollection userCollection)
         {
             _userCollection = userCollection;
             SendMessage(message);
         }
 
         public void SendMessage(string message)
-        {           
-            StartSkype();                                   
+        {
+            StartSkype();
             var chat = _skype.CreateChatMultiple(_userCollection);
-            chat.OpenWindow();            
-            chat.SendMessage(message);
-            chat.Leave();
+            chat.OpenWindow();
+            try
+            {
+                chat.SendMessage(message);
+                chat.Leave();
+            }
+            catch (Exception ex)
+            {
+                var s = ex.Message;
+                throw;
+            }
+
         }
 
         private void StartSkype()
@@ -35,15 +46,29 @@ namespace CCSkype
             {
                 _skype.SkypeClient().Start(false, true);
             }
-        }        
+        }
 
         public void SetUserList(List<User> users)
         {
-           _userCollection = new UserCollection(new UserCollectionClass());            
             foreach (var user in users)
             {
-                _userCollection.Add(_skype.Get_User(user.Username));
-            }           
+                var x = _skype.GetUser(user.Username);
+                _userCollection.Add(x);
+            }
+        }
+
+        public bool AllKnownUsers(List<User> users)
+        {
+            var skypeUsers = _skype.GetUsers();
+
+            foreach (var user in users)
+            {
+                if (!skypeUsers.Contains(user.Username))
+                {
+                    throw new UserNotKnowException(user.Username);                    
+                }
+            }
+            return true;
         }
     }
 }

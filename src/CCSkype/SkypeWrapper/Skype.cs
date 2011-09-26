@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace CCSkype.SkypeWrapper
 {
     public class Skype : ISkype
@@ -16,12 +18,20 @@ namespace CCSkype.SkypeWrapper
 
         public IChat CreateChatMultiple(IUserCollection userCollection)
         {
-            return new Chat(_skype.CreateChatMultiple(userCollection.GetUserCollection));
+            var userCol = userCollection.GetUserCollection;
+            var chat = _skype.CreateChatMultiple(userCol);
+            return new Chat(chat);
         }
 
-        public User Get_User(string username)
+        public IUser GetUser(string username)
         {
             return new User(_skype.get_User(username));
+        }
+
+        public List<string> GetUsers()
+        {
+            var f = _skype.Friends;
+            return new UserCollection(f).GetUsers();
         }
     }
 }
