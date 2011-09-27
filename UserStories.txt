@@ -3,4 +3,6 @@
 
 TODO
 
-Write a 
+Need to store chats in a collection. 
+
+ 

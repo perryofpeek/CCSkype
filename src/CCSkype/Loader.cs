@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace CCSkype
 {
-    public class Loader
+    public class Loader : ILoader
     {
         private readonly IMessengerClient _messengerClient;
 

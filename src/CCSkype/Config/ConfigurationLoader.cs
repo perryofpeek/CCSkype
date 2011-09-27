@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace CCSkype.Config
 {
-    public class ConfigurationLoader
+    public class ConfigurationLoader : IConfigurationLoader
     {
         public Configuration Load(string path)
         {

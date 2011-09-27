@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using SKYPE4COMLib;
-using UserCollection = CCSkype.SkypeWrapper.UserCollection;
 
 namespace CCSkype
 {
@@ -30,7 +28,7 @@ namespace CCSkype
             try
             {
                 chat.SendMessage(message);
-                chat.Leave();
+                chat.Leave();                
             }
             catch (Exception ex)
             {

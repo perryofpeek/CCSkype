@@ -23,9 +23,41 @@ using System.Xml.Serialization;
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
 public partial class Configuration {
-    
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string cctrayUri
+    {
+        get
+        {
+            return this._cctrayUri;
+        }
+        set
+        {
+            this._cctrayUri = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string pollTime
+    {
+        get
+        {
+            return this._pollTime;
+        }
+        set
+        {
+            this._pollTime = value;
+        }
+    }
+
+
     private ConfigurationPipeline[] itemsField;
     
+    private string _cctrayUri;
+    private string _pollTime;
+
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("Pipeline", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
     public ConfigurationPipeline[] Items {

@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCSkype.UnitTests", "test\C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCSkype.AcceptTests", "test\CCSkype.AcceptTests\CCSkype.AcceptTests.csproj", "{D9F31583-704E-436E-ACE2-9001444BC2BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCSkype.Console", "src\CCSkype.Console\CCSkype.Console.csproj", "{B94EEA80-0E2C-4A55-8FF4-64F99C7C249E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,12 +41,17 @@ Global
 		{D9F31583-704E-436E-ACE2-9001444BC2BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9F31583-704E-436E-ACE2-9001444BC2BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9F31583-704E-436E-ACE2-9001444BC2BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B94EEA80-0E2C-4A55-8FF4-64F99C7C249E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B94EEA80-0E2C-4A55-8FF4-64F99C7C249E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B94EEA80-0E2C-4A55-8FF4-64F99C7C249E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B94EEA80-0E2C-4A55-8FF4-64F99C7C249E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C67D3F92-072A-4405-9AD4-B97E27AA42ED} = {0C460C81-6DA3-4A9A-9210-356B3B65E3A5}
+		{B94EEA80-0E2C-4A55-8FF4-64F99C7C249E} = {0C460C81-6DA3-4A9A-9210-356B3B65E3A5}
 		{E10EE1CB-4296-4575-BA91-5118B66835DA} = {B998353E-2CFB-4E33-9C96-DF2DEFB8AAA1}
 		{D9F31583-704E-436E-ACE2-9001444BC2BA} = {B998353E-2CFB-4E33-9C96-DF2DEFB8AAA1}
 	EndGlobalSection

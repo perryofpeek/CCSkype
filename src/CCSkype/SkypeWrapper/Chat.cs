@@ -6,7 +6,7 @@ namespace CCSkype.SkypeWrapper
 
         public Chat(SKYPE4COMLib.Chat chat)
         {
-            _chat = chat;
+            _chat = chat;            
         }
 
         public SKYPE4COMLib.Chat GetChat
@@ -16,12 +16,14 @@ namespace CCSkype.SkypeWrapper
 
         public void OpenWindow()
         {
+            _chat.Description = "test";
+            _chat.Topic = "test";            
             _chat.OpenWindow();
         }
 
         public void Leave()
         {
-            _chat.Leave();
+            _chat.Leave();            
         }
 
         public void SendMessage(string message)

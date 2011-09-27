@@ -11,6 +11,7 @@ namespace CCSkype.UnitTests.Loader
         public void Should_load_user_groups_from_config()
         {
             var skypeClient = MockRepository.GenerateMock<IMessengerClient>();
+            skypeClient.Expect(x => x.AllKnownUsers(null)).IgnoreArguments().Return(true);
 
             var name = "somename";
             Configuration configuration = new Configuration();
@@ -24,7 +25,8 @@ namespace CCSkype.UnitTests.Loader
             //Test
             var userGroups = loader.GetUserGroups(configuration);
             //Assert
-            Assert.That(userGroups.IsMonitoring(name));                       
+            Assert.That(userGroups.IsMonitoring(name));
+            skypeClient.VerifyAllExpectations();
         }
     }
 }

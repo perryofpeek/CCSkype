@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace CCSkype
 {
-    public class Projectwatcher
+    public class Projectwatcher : IProjectwatcher
     {
         private readonly IUserGroups _userGroups;
 
