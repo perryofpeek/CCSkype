@@ -86,7 +86,7 @@
     <Compile Include="configuration\With_load.cs" />
     <Compile Include="controller\With_Start.cs" />
     <Compile Include="endPoint\With_GetXml.cs" />
-    <Compile Include="httpGetTests.cs" />
+    <Compile Include="With_Request.cs" />
     <Compile Include="Loader\With_Load.cs" />
     <Compile Include="MessengerClient\With_AllKnownUsers.cs" />
     <Compile Include="ProjectWatcher\With_Message.cs" />

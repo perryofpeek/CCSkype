@@ -34,7 +34,7 @@
         <property name="nunitCategory" value="/exclude:${ExcludeCatagory}"/>
         <property name="nunitResultXml" value="${reportOutputPath}\${projectName}.UnitTests.xml" />
         <echo message ="Copying assemblies from ${srcPath} to ${nunitWorkingDir}" />
-        <copy overwrite ="true" todir ="${nunitWorkingDir}" flatten="true" >
+        <copy overwrite ="true" todir ="${nunitWorkingDir}" flatten="true" verbose="true">
           <fileset basedir ="${srcPath}">
             <include name ="./**/Bin/Release/*.dll"/>
             <include name ="./**/Bin/Release/*.sdf"/>
@@ -45,14 +45,21 @@
             <include name ="./**/Bin/Release/*.xml"/>
             <include name ="./*/Bin/Release/**/*.xml"/>
             <include name ="./*UnitTests/Bin/Release/**/*.html"/>			
-			      <include name ="./**/Bin/Release/*.txt"/>
+			<include name ="./**/Bin/Release/*.txt"/>
           </fileset>
         </copy>
+		
+		 <copy overwrite ="true" todir ="${nunitWorkingDir}" flatten="true" >
+          <fileset basedir ="${srcPath}">
+            <include name ="./**/Bin/Release/*.dll"/>            
+          </fileset>
+        </copy>
+		
         <echo message="##### copying Test Data from: ${srcPath}/Test to ${nunitWorkingDir}/TestData " />
 
         <foreach item="Folder" in="${srcPath}\Test" property="foldername">
           <echo message="${foldername}" />
-          <copy overwrite ="true" todir ="${nunitWorkingDir}" flatten="false">
+          <copy overwrite ="true" todir ="${nunitWorkingDir}" flatten="false"  verbose="true">
             <fileset basedir ="${foldername}\Bin\Release\">
               <include name="**\*.*"/>
             </fileset>
@@ -60,7 +67,7 @@
         </foreach>
 
 
-        <copy overwrite ="true" todir ="${nunitWorkingDir}" flatten="false" >
+        <copy overwrite ="true" todir ="${nunitWorkingDir}" flatten="false" verbose="true" >
           <fileset basedir ="${srcPath}\Test">
             <include name="*\Bin\Release\**\*.*"/>
           </fileset>

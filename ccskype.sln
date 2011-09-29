@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		build.bat = build.bat
 		ccskype.nunit = ccskype.nunit
-		component.build = component.build
-		build\nugetMacros.build = build\nugetMacros.build
 		packages.config = packages.config
 		UserStories.txt = UserStories.txt
 	EndProjectSection
@@ -22,6 +20,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCSkype.AcceptTests", "test\CCSkype.AcceptTests\CCSkype.AcceptTests.csproj", "{D9F31583-704E-436E-ACE2-9001444BC2BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCSkype.Console", "src\CCSkype.Console\CCSkype.Console.csproj", "{B94EEA80-0E2C-4A55-8FF4-64F99C7C249E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{C57CF3DE-FC5A-45F5-92B6-41E0552C6902}"
+	ProjectSection(SolutionItems) = preProject
+		component.build = component.build
+		build\MSBuildTasks.build = build\MSBuildTasks.build
+		build\nugetMacros.build = build\nugetMacros.build
+		build\NUnit.build = build\NUnit.build
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,5 +60,6 @@ Global
 		{B94EEA80-0E2C-4A55-8FF4-64F99C7C249E} = {0C460C81-6DA3-4A9A-9210-356B3B65E3A5}
 		{E10EE1CB-4296-4575-BA91-5118B66835DA} = {B998353E-2CFB-4E33-9C96-DF2DEFB8AAA1}
 		{D9F31583-704E-436E-ACE2-9001444BC2BA} = {B998353E-2CFB-4E33-9C96-DF2DEFB8AAA1}
+		{C57CF3DE-FC5A-45F5-92B6-41E0552C6902} = {D072A4F5-DE59-4CF8-9183-AB3FDF46BBDC}
 	EndGlobalSection
 EndGlobal

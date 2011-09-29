@@ -17,7 +17,7 @@
       <attributes>
         <attribute name="configuration" default="Debug" />
         <attribute name="solution" />
-        <attribute name="compile.msBuild.path" default="C:\WINDOWS\Microsoft.NET\Framework\v3.5" />
+        <attribute name="compile.msBuild.path" default="C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319" />
         <attribute name="compile.msBuild.verbosity" default="n" />
         <!-- q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic] -->
       </attributes>
@@ -35,7 +35,7 @@
         <attribute name="solution" />
       </attributes>
       <sequential>
-        <property name="compile.msBuild.path" value="C:\WINDOWS\Microsoft.NET\Framework\v3.5" />
+        <property name="compile.msBuild.path" value="C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319" />
         <property name="compile.msBuild.verbosity" value="n" />
         <echo message="Building ${solution} with target ${target} and configuration ${configuration}"/>
         <exec basedir="${compile.msBuild.path}"
