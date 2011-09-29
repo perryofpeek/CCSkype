@@ -20,6 +20,7 @@ namespace CCSkype.AcceptTests
         private MessengerClient messengerClient;
         private IHttpGet httpGet;
         private Loader loader;
+        private IChats chats;
 
 
         [SetUp]
@@ -32,7 +33,9 @@ namespace CCSkype.AcceptTests
             user = MockRepository.GenerateMock<IUser>();
             configurationLoader = new ConfigurationLoader();            
             httpGet = MockRepository.GenerateMock<IHttpGet>();
-            messengerClient = new MessengerClient(skype, userCollection);
+            chats = MockRepository.GenerateMock<IChats>();
+            messengerClient = new MessengerClient(skype, userCollection, chats);
+
             loader = new Loader(messengerClient);
         }
 
@@ -44,6 +47,7 @@ namespace CCSkype.AcceptTests
             client.Expect(x => x.IsRunning()).Return(true);
             skype.Expect(x => x.CreateChatMultiple(userCollection)).Return(chat);
             skype.Expect(x => x.SkypeClient()).Return(client);
+            skype.Expect(x => x.GetUsers()).Return(new List<string>() {"owainfperry"});
             skype.Expect(x => x.GetUser("owainfperry")).IgnoreArguments().Return(user).Repeat.Once();
             skype.Expect(x => x.GetUser("otherUser")).IgnoreArguments().Return(user).Repeat.Once();
             chat.Expect(x => x.OpenWindow());
@@ -51,7 +55,7 @@ namespace CCSkype.AcceptTests
             chat.Expect(x => x.SendMessage(message));
             userCollection.Expect(x => x.Add(user)).IgnoreArguments();
                       
-            var config = configurationLoader.Load("OnePipeline.xml");           
+            var config = configurationLoader.Load("MockOnePipeline.xml");           
             var userGroups = loader.GetUserGroups(config);
             var projectwatcher = new Projectwatcher(userGroups);
             string url = "someUrl";
@@ -77,6 +81,8 @@ namespace CCSkype.AcceptTests
         public void As_A_unknown_user_I_want_to_have_an_error_message_when_configuration_is_loaded()
         {           
             skype.Expect(x => x.GetUsers()).Return(new List<string> {"Mark"});
+            skype.Expect(x => x.SkypeClient()).Return(client);
+            client.Expect(x => x.IsRunning()).Return(true);
             Assert.Throws<UserNotKnowException>( () => loader.GetUserGroups(configurationLoader.Load("UnknownUserPipeline.xml")));           
         }
     }

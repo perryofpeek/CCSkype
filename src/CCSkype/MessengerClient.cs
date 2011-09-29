@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CCSkype.SkypeWrapper;
 
 namespace CCSkype
 {
@@ -7,14 +8,16 @@ namespace CCSkype
     {
         private readonly SkypeWrapper.ISkype _skype;
         private SkypeWrapper.IUserCollection _userCollection;
+        private readonly IChats _chats;
 
-        public MessengerClient(SkypeWrapper.ISkype skype, SkypeWrapper.IUserCollection userCollection)
+        public MessengerClient(SkypeWrapper.ISkype skype, SkypeWrapper.IUserCollection userCollection,IChats chats)
         {
             _skype = skype;
             _userCollection = userCollection;
+            _chats = chats;
         }
 
-        public void SendMessage(string message, SkypeWrapper.IUserCollection userCollection)
+        public void SendMessage(string message, IUserCollection userCollection)
         {
             _userCollection = userCollection;
             SendMessage(message);
@@ -57,6 +60,7 @@ namespace CCSkype
 
         public bool AllKnownUsers(List<User> users)
         {
+            StartSkype();
             var skypeUsers = _skype.GetUsers();
 
             foreach (var user in users)
