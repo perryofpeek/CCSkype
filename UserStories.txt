@@ -1,6 +1,3 @@
-
-
-
 TODO
 
 Need to store chats in a collection. 
