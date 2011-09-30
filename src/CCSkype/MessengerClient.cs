@@ -30,8 +30,7 @@ namespace CCSkype
             chat.OpenWindow();
             try
             {
-                chat.SendMessage(message);
-                chat.Leave();                
+                chat.SendMessage(message);                              
             }
             catch (Exception ex)
             {

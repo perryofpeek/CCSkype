@@ -19,7 +19,8 @@ namespace CCSkype.SkypeWrapper
         public IChat CreateChatMultiple(IUserCollection userCollection, string name)
         {
             var userCol = userCollection.GetUserCollection;
-            var chat = _skype.CreateChatMultiple(userCol);            
+            var chat = _skype.CreateChatMultiple(userCol);
+            chat.Description = name;
             return new Chat(chat, name);
         }
 

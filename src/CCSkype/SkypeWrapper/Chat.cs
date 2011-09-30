@@ -18,9 +18,7 @@ namespace CCSkype.SkypeWrapper
         public string Name { get; private set; }
 
         public void OpenWindow()
-        {
-            _chat.Description = Name;
-            //_chat.Topic = Name;            
+        {          
             _chat.OpenWindow();
         }
 

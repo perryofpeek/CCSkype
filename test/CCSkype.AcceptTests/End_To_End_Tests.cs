@@ -63,6 +63,34 @@ namespace CCSkype.AcceptTests
         }
 
         [Test]
+        public void As_A_user_I_want_to_have_multiple_messages_when_a_build_fails_so_that_I_can_fix_the_build()
+        {
+            var message = "someMessage - " + Guid.NewGuid().ToString();
+            var skype = new Skype();
+            var chats = new Chats(skype);
+            var configurationLoader = new ConfigurationLoader();
+            var loader = new Loader(new MessengerClient(skype, new UserCollection(new SKYPE4COMLib.UserCollection()), chats));
+            var projectwatcher = new Projectwatcher(loader.GetUserGroups(configurationLoader.Load("OnePipeline.xml")));
+
+            string url = "someUrl";
+
+            var httpGet = MockRepository.GenerateMock<IHttpGet>();
+            httpGet.Expect(x => x.Request(url));
+            httpGet.Expect(x => x.StatusCode).Return(200);
+            httpGet.Expect(x => x.ResponseBody).Return(File.ReadAllText("cctray.xml"));
+
+            ICcTray ccTray = new CcTray(new EndpointImpl(httpGet, url));
+            ccTray.Load();
+
+            //Test
+            projectwatcher.Message(ccTray.FailedPipelines, message);
+            projectwatcher.Message(ccTray.FailedPipelines, message + " [1]");
+            projectwatcher.Message(ccTray.FailedPipelines, message + " [2]");
+        }
+
+
+
+        [Test]
         public void As_an_unknown_skype_user_I_want_to_have_an_error_message_when_configuration_is_loaded()
         {
             var skype = new Skype();

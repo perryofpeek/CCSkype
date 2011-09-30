@@ -19,7 +19,7 @@ namespace CCSkype.SkypeWrapper
         {
             if (!_chats.ContainsKey(name))
             {
-               _chats.Add(name, _skype.CreateChatMultiple(userCollection, name)); 
+               _chats.Add(name, _skype.CreateChatMultiple(userCollection, name));                
             }
             return _chats[name];
         }

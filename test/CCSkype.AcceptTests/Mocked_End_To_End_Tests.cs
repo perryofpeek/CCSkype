@@ -45,14 +45,12 @@ namespace CCSkype.AcceptTests
             var message = "someMessage";
             var name = "Trunk_QA_Env_PCIDSS";
             client.Expect(x => x.IsRunning()).Return(true);
-            chats.Expect(x => x.Get(name, userCollection)).Return(chat);
-            //skype.Expect(x => x.CreateChatMultiple(userCollection, name)).Return(chat);
+            chats.Expect(x => x.Get(name, userCollection)).Return(chat);            
             skype.Expect(x => x.SkypeClient()).Return(client);
-            skype.Expect(x => x.GetUsers()).Return(new List<string>() {"owainfperry"});
+            skype.Expect(x => x.GetUsers()).Return(new List<string> {"owainfperry"});
             skype.Expect(x => x.GetUser("owainfperry")).IgnoreArguments().Return(user).Repeat.Once();
             skype.Expect(x => x.GetUser("otherUser")).IgnoreArguments().Return(user).Repeat.Once();
-            chat.Expect(x => x.OpenWindow());
-            chat.Expect(x => x.Leave());
+            chat.Expect(x => x.OpenWindow());            
             chat.Expect(x => x.SendMessage(message));
             userCollection.Expect(x => x.Add(user)).IgnoreArguments();
                       
@@ -71,6 +69,45 @@ namespace CCSkype.AcceptTests
 
             //Test
             projectwatcher.Message(ccTray.FailedPipelines, message);
+
+            chat.VerifyAllExpectations();
+            skype.VerifyAllExpectations();
+            client.VerifyAllExpectations();
+            userCollection.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void Should_send_a_multiple_message_sucessfully_mocking_http_and_skype()
+        {
+            var message = "someMessage";
+            var name = "Trunk_QA_Env_PCIDSS";
+            client.Expect(x => x.IsRunning()).Return(true);
+            chats.Expect(x => x.Get(name, userCollection)).Return(chat);
+            skype.Expect(x => x.SkypeClient()).Return(client);
+            skype.Expect(x => x.GetUsers()).Return(new List<string> { "owainfperry" });
+            skype.Expect(x => x.GetUser("owainfperry")).IgnoreArguments().Return(user).Repeat.Once();
+            skype.Expect(x => x.GetUser("otherUser")).IgnoreArguments().Return(user).Repeat.Once();
+            chat.Expect(x => x.OpenWindow());           
+            chat.Expect(x => x.SendMessage(message));
+            userCollection.Expect(x => x.Add(user)).IgnoreArguments();
+
+            var config = configurationLoader.Load("MockOnePipeline.xml");
+            var userGroups = loader.GetUserGroups(config);
+            var projectwatcher = new Projectwatcher(userGroups);
+            string url = "someUrl";
+
+
+            httpGet.Expect(x => x.Request(url));
+            httpGet.Expect(x => x.StatusCode).Return(200);
+            httpGet.Expect(x => x.ResponseBody).Return(File.ReadAllText("cctray.xml"));
+
+            ICcTray ccTray = new CcTray(new EndpointImpl(httpGet, url));
+            ccTray.Load();
+
+            //Test
+            projectwatcher.Message(ccTray.FailedPipelines, message);
+            projectwatcher.Message(ccTray.FailedPipelines, message);
+
 
             chat.VerifyAllExpectations();
             skype.VerifyAllExpectations();
