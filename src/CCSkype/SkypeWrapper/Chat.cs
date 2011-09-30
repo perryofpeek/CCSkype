@@ -4,9 +4,10 @@ namespace CCSkype.SkypeWrapper
     {
         private readonly SKYPE4COMLib.Chat _chat;
 
-        public Chat(SKYPE4COMLib.Chat chat)
+        public Chat(SKYPE4COMLib.Chat chat, string name)
         {
-            _chat = chat;            
+            Name = name;
+            _chat = chat;
         }
 
         public SKYPE4COMLib.Chat GetChat
@@ -14,10 +15,12 @@ namespace CCSkype.SkypeWrapper
             get { return _chat; }
         }
 
+        public string Name { get; private set; }
+
         public void OpenWindow()
         {
-            _chat.Description = "test";
-            _chat.Topic = "test";            
+            _chat.Description = Name;
+            //_chat.Topic = Name;            
             _chat.OpenWindow();
         }
 

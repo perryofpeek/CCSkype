@@ -59,12 +59,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Castle.Windsor\lib\NET35\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Rhino.Mocks">
       <HintPath>..\..\packages\RhinoMocks\lib\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -83,15 +81,16 @@
   <ItemGroup>
     <Compile Include="CCSkype\With_process.cs" />
     <Compile Include="CCTray\With_Load.cs" />
+    <Compile Include="chats\With_Get.cs" />
     <Compile Include="configuration\With_load.cs" />
     <Compile Include="controller\With_Start.cs" />
     <Compile Include="endPoint\With_GetXml.cs" />
     <Compile Include="With_Request.cs" />
     <Compile Include="Loader\With_Load.cs" />
-    <Compile Include="MessengerClient\With_AllKnownUsers.cs" />
+    <Compile Include="Messenger_Client\With_AllKnownUsers.cs" />
     <Compile Include="ProjectWatcher\With_Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MessengerClient\With_SendMessage.cs" />
+    <Compile Include="Messenger_Client\With_SendMessage.cs" />
     <Compile Include="skypeMessenger\With_execute.cs" />
     <Compile Include="sleep\With_sleep.cs" />
     <Compile Include="timer\With_run.cs" />
@@ -134,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helper\" />
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -151,6 +151,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

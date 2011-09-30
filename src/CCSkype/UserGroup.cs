@@ -20,7 +20,7 @@ namespace CCSkype
         public void Send(string message)
         {
             _messengerClient.SetUserList(_users);
-            _messengerClient.SendMessage(message);            
+            _messengerClient.SendMessage(message, Name);            
         }
     }
 }

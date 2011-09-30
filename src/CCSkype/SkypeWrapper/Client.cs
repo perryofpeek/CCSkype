@@ -20,7 +20,7 @@ namespace CCSkype.SkypeWrapper
         }
 
         public void Start(bool minimised,bool noSplash)
-        {
+        {            
             _client.Start(minimised, noSplash);
         }
     }

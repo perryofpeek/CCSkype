@@ -16,11 +16,11 @@ namespace CCSkype.SkypeWrapper
             return new Client(_skype.Client);
         }
 
-        public IChat CreateChatMultiple(IUserCollection userCollection)
+        public IChat CreateChatMultiple(IUserCollection userCollection, string name)
         {
             var userCol = userCollection.GetUserCollection;
-            var chat = _skype.CreateChatMultiple(userCol);
-            return new Chat(chat);
+            var chat = _skype.CreateChatMultiple(userCol);            
+            return new Chat(chat, name);
         }
 
         public IUser GetUser(string username)

@@ -43,9 +43,10 @@ namespace CCSkype.AcceptTests
         public void Should_send_a_single_message_sucessfully_mocking_http_and_skype()
         {
             var message = "someMessage";
-          
+            var name = "Trunk_QA_Env_PCIDSS";
             client.Expect(x => x.IsRunning()).Return(true);
-            skype.Expect(x => x.CreateChatMultiple(userCollection)).Return(chat);
+            chats.Expect(x => x.Get(name, userCollection)).Return(chat);
+            //skype.Expect(x => x.CreateChatMultiple(userCollection, name)).Return(chat);
             skype.Expect(x => x.SkypeClient()).Return(client);
             skype.Expect(x => x.GetUsers()).Return(new List<string>() {"owainfperry"});
             skype.Expect(x => x.GetUser("owainfperry")).IgnoreArguments().Return(user).Repeat.Once();

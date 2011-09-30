@@ -6,27 +6,27 @@ namespace CCSkype
 {
     public class MessengerClient : IMessengerClient
     {
-        private readonly SkypeWrapper.ISkype _skype;
-        private SkypeWrapper.IUserCollection _userCollection;
+        private readonly ISkype _skype;
+        private IUserCollection _userCollection;
         private readonly IChats _chats;
 
-        public MessengerClient(SkypeWrapper.ISkype skype, SkypeWrapper.IUserCollection userCollection,IChats chats)
+        public MessengerClient(ISkype skype, IUserCollection userCollection,IChats chats)
         {
             _skype = skype;
             _userCollection = userCollection;
             _chats = chats;
         }
 
-        public void SendMessage(string message, IUserCollection userCollection)
+        public void SendMessage(string message, IUserCollection userCollection, string name)
         {
             _userCollection = userCollection;
-            SendMessage(message);
+            SendMessage(message, name);
         }
 
-        public void SendMessage(string message)
+        public void SendMessage(string message, string name)
         {
             StartSkype();
-            var chat = _skype.CreateChatMultiple(_userCollection);
+            var chat = _chats.Get(name, _userCollection);           
             chat.OpenWindow();
             try
             {

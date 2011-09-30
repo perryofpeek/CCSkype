@@ -6,7 +6,7 @@ namespace CCSkype.SkypeWrapper
     {
         IClient SkypeClient();
 
-        IChat CreateChatMultiple(IUserCollection userCollection);
+        IChat CreateChatMultiple(IUserCollection userCollection, string name);
         
         IUser GetUser(string username);
 

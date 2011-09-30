@@ -25,13 +25,14 @@ namespace CCSkype.UnitTests.User_Group
         [Test]
         public void Should_send_group_a_message()
         {
+
+            string name = "someName";
             var message = "Some message";
             var users = new List<User>();
             _messengerClient.Expect(x => x.SetUserList(users));
-            _messengerClient.Expect(x => x.SendMessage(message));
+            _messengerClient.Expect(x => x.SendMessage(message, name));
 
 
-            string name = "someName";
             var group = new UserGroup(_messengerClient, users, name);
             group.Send(message);
 

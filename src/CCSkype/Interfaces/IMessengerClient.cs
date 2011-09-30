@@ -4,7 +4,7 @@ namespace CCSkype
 {
     public interface IMessengerClient
     {
-        void SendMessage(string message);
+        void SendMessage(string message, string name);
         
         void SetUserList(List<User> users);
         
