@@ -36,7 +36,7 @@ namespace CCSkype.UnitTests.Messenger_Client
             chats.Expect(x => x.Get(name, userCollection)).Return(chat);
             skype.Expect(x => x.SkypeClient()).Return(client);
             chat.Expect(x => x.OpenWindow());
-            chat.Expect(x => x.Leave());
+            //chat.Expect(x => x.Leave());
             chat.Expect(x => x.SendMessage(message));           
             //Test
             messengerClient.SendMessage(message, userCollection, name);
@@ -54,11 +54,9 @@ namespace CCSkype.UnitTests.Messenger_Client
             var message = "someMessage";
             var name = "name";
             client.Expect(x => x.IsRunning()).Return(true);
-            chats.Expect(x => x.Get(name, userCollection)).Return(chat);
-           //skype.Expect(x => x.CreateChatMultiple(userCollection)).Return(chat);
+            chats.Expect(x => x.Get(name, userCollection)).Return(chat);          
             skype.Expect(x => x.SkypeClient()).Return(client);
-            chat.Expect(x => x.OpenWindow());
-            chat.Expect(x => x.Leave());
+            chat.Expect(x => x.OpenWindow());            
             chat.Expect(x => x.SendMessage(message));            
             //Test
             messengerClient.SendMessage(message, userCollection, name);
@@ -76,10 +74,9 @@ namespace CCSkype.UnitTests.Messenger_Client
             var message = "someMessage";  
             client.Expect(x => x.IsRunning()).Return(false);
             client.Expect(x => x.Start(false, true));
-            skype.Expect(x => x.CreateChatMultiple(userCollection, name)).Return(chat);
+            chats.Expect(x => x.Get(name, userCollection)).Return(chat);                      
             skype.Expect(x => x.SkypeClient()).Return(client);
-            chat.Expect(x => x.OpenWindow());
-            chat.Expect(x => x.Leave());
+            chat.Expect(x => x.OpenWindow());            
             chat.Expect(x => x.SendMessage(message));            
             //Test
             messengerClient.SendMessage(message, userCollection, name);
