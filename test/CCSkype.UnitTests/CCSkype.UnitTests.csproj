@@ -85,6 +85,8 @@
     <Compile Include="configuration\With_load.cs" />
     <Compile Include="controller\With_Start.cs" />
     <Compile Include="endPoint\With_GetXml.cs" />
+    <Compile Include="project\With_GetUniqueKey.cs" />
+    <Compile Include="project\With_GetMessage.cs" />
     <Compile Include="With_Request.cs" />
     <Compile Include="Loader\With_Load.cs" />
     <Compile Include="Messenger_Client\With_AllKnownUsers.cs" />
@@ -94,15 +96,16 @@
     <Compile Include="skypeMessenger\With_execute.cs" />
     <Compile Include="sleep\With_sleep.cs" />
     <Compile Include="timer\With_run.cs" />
-    <Compile Include="User_Groups\With_Message.cs" />
+    <Compile Include="User_Groups\With_Alert.cs" />
     <Compile Include="User_Group\With_name.cs" />
     <Compile Include="User_Group\With_Send.cs" />
     <Compile Include="User\With_User.cs" />
     <Compile Include="With_cctray.cs" />
     <Compile Include="With_controller.cs" />
     <Compile Include="With_Get.cs" />
-    <Compile Include="With_Project_constructor.cs" />
+    <Compile Include="project\With_Project_constructor.cs" />
     <Compile Include="User_Groups\With_IsMonitoring.cs" />
+    <Compile Include="With_ShouldAlert.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SKYPE4COMLib">
@@ -133,7 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helper\" />
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

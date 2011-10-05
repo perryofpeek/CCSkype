@@ -73,15 +73,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildCollection.cs" />
     <Compile Include="CcSkype.cs" />
     <Compile Include="CcTray.cs" />
     <Compile Include="Config\configuration.cs" />
     <Compile Include="Config\ConfigurationLoader.cs" />
     <Compile Include="Config\IConfigurationLoader.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="Dto\IProject.cs" />
     <Compile Include="EndpointImpl.cs" />
     <Compile Include="Exceptions\HttpException.cs" />
     <Compile Include="HttpGet.cs" />
+    <Compile Include="IBuildCollection.cs" />
     <Compile Include="SkypeWrapper\IChats.cs" />
     <Compile Include="ILoader.cs" />
     <Compile Include="Interfaces\ICcTray.cs" />

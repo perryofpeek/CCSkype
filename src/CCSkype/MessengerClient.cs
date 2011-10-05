@@ -10,7 +10,7 @@ namespace CCSkype
         private IUserCollection _userCollection;
         private readonly IChats _chats;
 
-        public MessengerClient(ISkype skype, IUserCollection userCollection,IChats chats)
+        public MessengerClient(ISkype skype, IUserCollection userCollection, IChats chats)
         {
             _skype = skype;
             _userCollection = userCollection;
@@ -25,24 +25,21 @@ namespace CCSkype
 
         public void SendMessage(string message, string name)
         {
-            StartSkype();
-            var chat = _chats.Get(name, _userCollection);           
-            chat.OpenWindow();
-            try
-            {
-                chat.SendMessage(message);                              
-            }
-            catch (Exception ex)
-            {
-                var s = ex.Message;
-                throw;
-            }
-
+            StartSkypeIfNotRunning();
+            var chat = GetChatWindow(name);
+            chat.SendMessage(message);
         }
 
-        private void StartSkype()
+        private IChat GetChatWindow(string name)
         {
-            if (_skype.SkypeClient().IsRunning() == false)
+            var chat = _chats.Get(name, _userCollection);
+            chat.OpenWindow();
+            return chat;
+        }
+
+        private void StartSkypeIfNotRunning()
+        {
+            if (!_skype.SkypeClient().IsRunning())
             {
                 _skype.SkypeClient().Start(false, true);
             }
@@ -50,23 +47,24 @@ namespace CCSkype
 
         public void SetUserList(List<User> users)
         {
-            foreach (var user in users)
-            {
-                var x = _skype.GetUser(user.Username);
-                _userCollection.Add(x);
-            }
+            users.ForEach(AddUser);          
+        }
+
+        private void  AddUser(User user)
+        {
+            _userCollection.Add(_skype.GetUser(user.Username));            
         }
 
         public bool AllKnownUsers(List<User> users)
         {
-            StartSkype();
+            StartSkypeIfNotRunning();
             var skypeUsers = _skype.GetUsers();
 
             foreach (var user in users)
             {
                 if (!skypeUsers.Contains(user.Username))
                 {
-                    throw new UserNotKnowException(user.Username);                    
+                    throw new UserNotKnowException(user.Username);
                 }
             }
             return true;

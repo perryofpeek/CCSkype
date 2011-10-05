@@ -1,6 +1,6 @@
 ﻿namespace CCSkype
 {
-    public class Project
+    public class Project : IProject
     {
         public Project(string name, string activity, string lastBuildStatus, string lastBuildLabel, string lastBuildTime, string webUrl)
         {
@@ -13,8 +13,8 @@
             _pipelineName = name.Trim();
             if (name.IndexOf("::") > 0)
             {
-                _pipelineName = name.Substring(0, name.IndexOf("::")).Trim();     
-            }                       
+                _pipelineName = name.Substring(0, name.IndexOf("::")).Trim();
+            }
         }
 
         public string name { get; private set; }
@@ -31,9 +31,19 @@
 
         public string PipelineName
         {
-            get { return _pipelineName; }           
+            get { return _pipelineName; }
         }
 
         private string _pipelineName;
+
+        public string GetMessage()
+        {
+            return string.Format("{0} has {2} build {1} {3}", _pipelineName, lastBuildLabel, activity, webUrl);
+        }
+
+        public string GetUniqueKey()
+        {
+            return string.Format("{0}-{1}-{2}-{3}", PipelineName, lastBuildLabel, lastBuildTime, lastBuildStatus);
+        }
     }
 }

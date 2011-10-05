@@ -5,7 +5,7 @@ namespace CCSkype
         bool IsMonitoring(string pipelineName);
         
         void Add(IUserGroup someGroup);
-        
-        void Alert(string pipelineName, string message);
+
+        void Alert(IProject project);
     }
 }

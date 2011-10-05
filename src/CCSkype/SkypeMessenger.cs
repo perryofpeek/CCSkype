@@ -18,7 +18,7 @@ namespace CCSkype
         public void Execute()
         {
             _ccTray.Load();
-            _projectwatcher.Message(_ccTray.FailedPipelines, _messageTemplate);
+            _projectwatcher.Message(_ccTray.FailedPipelines);
         }
     }
 }

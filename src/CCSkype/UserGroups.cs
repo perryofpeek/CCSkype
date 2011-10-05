@@ -4,13 +4,15 @@ namespace CCSkype
 {
     public class UserGroups : IUserGroups
     {
+        private readonly IBuildCollection _buildCollection;
         private readonly Hashtable _groups;
 
-        public UserGroups()
+        public UserGroups(IBuildCollection buildCollection)
         {
+            _buildCollection = buildCollection;
             _groups = new Hashtable();
         }
-      
+
         public bool IsMonitoring(string pipelineName)
         {
             return _groups.ContainsKey(pipelineName);
@@ -20,15 +22,17 @@ namespace CCSkype
         {
             _groups.Add(someGroup.Name, someGroup);           
         }
-
-
-        public void Alert(string pipelineName, string message)
+     
+        public void Alert(IProject project)
         {
-            if(IsMonitoring(pipelineName))
+            if (IsMonitoring(project.PipelineName))
             {
-                var g = (IUserGroup) _groups[pipelineName];
-                g.Send(message);
+                if(_buildCollection.ShouldAlert(project))
+                {
+                    var g = (IUserGroup)_groups[project.PipelineName];
+                    g.Send(project.GetMessage());                    
+                }
             }
-        }
+        }       
     }
 }

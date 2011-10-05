@@ -40,36 +40,12 @@ namespace CCSkype.AcceptTests
 
         [Test]
         public void As_A_user_I_want_to_have_a_message_when_a_build_fails_so_that_I_can_fix_the_build()
-        {            
-            var message = "someMessage - " + Guid.NewGuid().ToString();
-            var skype = new Skype();
-            var chats = new Chats(skype);
-            var configurationLoader = new ConfigurationLoader();
-            var loader = new Loader(new MessengerClient(skype, new UserCollection(new SKYPE4COMLib.UserCollection()), chats));
-            var projectwatcher = new Projectwatcher(loader.GetUserGroups(configurationLoader.Load("OnePipeline.xml")));
-
-            string url = "someUrl";
-
-            var httpGet = MockRepository.GenerateMock<IHttpGet>();
-            httpGet.Expect(x => x.Request(url));
-            httpGet.Expect(x => x.StatusCode).Return(200);
-            httpGet.Expect(x => x.ResponseBody).Return(File.ReadAllText("cctray.xml"));
-
-            ICcTray ccTray = new CcTray(new EndpointImpl(httpGet, url));
-            ccTray.Load();
-
-            //Test
-            projectwatcher.Message(ccTray.FailedPipelines, message);
-        }
-
-        [Test]
-        public void As_A_user_I_want_to_have_multiple_messages_when_a_build_fails_so_that_I_can_fix_the_build()
         {
             var message = "someMessage - " + Guid.NewGuid().ToString();
             var skype = new Skype();
             var chats = new Chats(skype);
             var configurationLoader = new ConfigurationLoader();
-            var loader = new Loader(new MessengerClient(skype, new UserCollection(new SKYPE4COMLib.UserCollection()), chats));
+            var loader = new Loader(new MessengerClient(skype, new UserCollection(new SKYPE4COMLib.UserCollection()), chats), new BuildCollection());
             var projectwatcher = new Projectwatcher(loader.GetUserGroups(configurationLoader.Load("OnePipeline.xml")));
 
             string url = "someUrl";
@@ -83,9 +59,65 @@ namespace CCSkype.AcceptTests
             ccTray.Load();
 
             //Test
-            projectwatcher.Message(ccTray.FailedPipelines, message);
-            projectwatcher.Message(ccTray.FailedPipelines, message + " [1]");
-            projectwatcher.Message(ccTray.FailedPipelines, message + " [2]");
+            projectwatcher.Message(ccTray.FailedPipelines);
+        }
+
+        
+
+        [Test]
+        public void As_A_user_I_want_to_two_messages_in_the_same_group_window_when_a_build_fails_so_that_I_can_fix_the_builds_when_each_fails()
+        {           
+            var skype = new Skype();
+            var chats = new Chats(skype);
+            var configurationLoader = new ConfigurationLoader();
+            var loader = new Loader(new MessengerClient(skype, new UserCollection(new SKYPE4COMLib.UserCollection()), chats),new BuildCollection());
+            var projectwatcher = new Projectwatcher(loader.GetUserGroups(configurationLoader.Load("OnePipeline.xml")));
+
+            string url = "someUrl";
+
+            var httpGet = MockRepository.GenerateMock<IHttpGet>();
+            httpGet.Expect(x => x.Request(url));
+            httpGet.Expect(x => x.StatusCode).Return(200);
+            httpGet.Expect(x => x.ResponseBody).Return(File.ReadAllText("cctray.xml"));
+
+            ICcTray ccTray = new CcTray(new EndpointImpl(httpGet, url));
+            ccTray.Load();
+
+            //Test
+            projectwatcher.Message(ccTray.FailedPipelines);
+        
+            var p = new Project("Trunk_QA_Env_PCIDSS :: Deployment_to_QA_PCIDSS1", "Failed", "Failure", "1.2.3.4","2011-09-23T16:59:18", "web");
+            ccTray.FailedPipelines.Add(p);
+            projectwatcher.Message(ccTray.FailedPipelines);
+            
+            projectwatcher.Message(ccTray.FailedPipelines);
+        }
+
+
+
+        [Test]
+        public void As_A_user_I_want_to_one_message_in_the_same_group_window_when_a_build_fails_so_that_I_can_fix_the_build()
+        {           
+            var skype = new Skype();
+            var chats = new Chats(skype);
+            var configurationLoader = new ConfigurationLoader();
+            var loader = new Loader(new MessengerClient(skype, new UserCollection(new SKYPE4COMLib.UserCollection()), chats),new BuildCollection());
+            var projectwatcher = new Projectwatcher(loader.GetUserGroups(configurationLoader.Load("OnePipeline.xml")));
+
+            string url = "someUrl";
+
+            var httpGet = MockRepository.GenerateMock<IHttpGet>();
+            httpGet.Expect(x => x.Request(url));
+            httpGet.Expect(x => x.StatusCode).Return(200);
+            httpGet.Expect(x => x.ResponseBody).Return(File.ReadAllText("cctray.xml"));
+
+            ICcTray ccTray = new CcTray(new EndpointImpl(httpGet, url));
+            ccTray.Load();
+
+            //Test
+            projectwatcher.Message(ccTray.FailedPipelines);
+            projectwatcher.Message(ccTray.FailedPipelines);
+            projectwatcher.Message(ccTray.FailedPipelines);
         }
 
 
@@ -96,7 +128,7 @@ namespace CCSkype.AcceptTests
             var skype = new Skype();
             var chats = new Chats(skype);
             var configurationLoader = new ConfigurationLoader();
-            var loader = new Loader(new MessengerClient(skype, new UserCollection(new SKYPE4COMLib.UserCollection()), chats));
+            var loader = new Loader(new MessengerClient(skype, new UserCollection(new SKYPE4COMLib.UserCollection()), chats),new BuildCollection());
             Assert.Throws<UserNotKnowException>(() => loader.GetUserGroups(configurationLoader.Load("UnknownUserPipeline.xml")));
         }
     }

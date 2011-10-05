@@ -11,11 +11,11 @@ namespace CCSkype
             _userGroups = userGroups;
         }
        
-        public void Message(List<Project> projectsToMessage, string message)
+        public void Message(List<Project> projectsToMessage)
         {
             foreach (var project in projectsToMessage)
             {
-                _userGroups.Alert(project.PipelineName, message);
+                _userGroups.Alert(project);
             }
         }
     }

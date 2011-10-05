@@ -13,13 +13,14 @@ namespace CCSkype.UnitTests.ProjectWatcher
         {
             var message = "build failed";
             var userGroups = MockRepository.GenerateMock<IUserGroups>();
-            userGroups.Expect(x => x.Alert("ABC", message));                        
+            var project = new Project("ABC", "Failed", "Failed", "Failed", "10:20", "http://some.place");
+            userGroups.Expect(x => x.Alert(project));                        
             var list = new List<Project>();
-            list.Add(new Project("ABC", "Failed", "Failed", "Failed", "10:20", "http://some.place"));
+            list.Add(project);
             var projectwatcher = new Projectwatcher(userGroups);
 
             //Test
-            projectwatcher.Message(list, message);
+            projectwatcher.Message(list);
             //Assert
             userGroups.VerifyAllExpectations();
         }

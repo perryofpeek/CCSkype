@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace CCSkype.UnitTests
+namespace CCSkype.UnitTests.project
 {
     // ReSharper disable InconsistentNaming
     [TestFixture]    

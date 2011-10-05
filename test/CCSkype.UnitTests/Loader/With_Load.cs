@@ -4,14 +4,16 @@ using Rhino.Mocks;
 namespace CCSkype.UnitTests.Loader
 {
     // ReSharper disable InconsistentNaming
-    [TestFixture]    
+    [TestFixture]
     public class With_Load
-    {        
+    {
         [Test]
         public void Should_load_user_groups_from_config()
         {
             var skypeClient = MockRepository.GenerateMock<IMessengerClient>();
             skypeClient.Expect(x => x.AllKnownUsers(null)).IgnoreArguments().Return(true);
+
+            var buildCollection = MockRepository.GenerateMock<IBuildCollection>();
 
             var name = "somename";
             Configuration configuration = new Configuration();
@@ -21,7 +23,7 @@ namespace CCSkype.UnitTests.Loader
             configuration.Items[0].users = new ConfigurationPipelineUsersUser[1];
             configuration.Items[0].users[0] = new ConfigurationPipelineUsersUser();
             configuration.Items[0].users[0].skypeName = "skypeName";
-            var loader = new global::CCSkype.Loader(skypeClient);
+            var loader = new global::CCSkype.Loader(skypeClient, buildCollection);
             //Test
             var userGroups = loader.GetUserGroups(configuration);
             //Assert
