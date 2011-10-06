@@ -1,7 +1,14 @@
-﻿namespace CCSkype
+﻿using System.Xml.Serialization;
+
+namespace CCSkype
 {
+    [XmlTypeAttribute(AnonymousType = true)]
     public class Project : IProject
     {
+        public Project()
+        {
+        }
+
         public Project(string name, string activity, string lastBuildStatus, string lastBuildLabel, string lastBuildTime, string webUrl)
         {
             this.name = name;
@@ -17,17 +24,23 @@
             }
         }
 
-        public string name { get; private set; }
+        [XmlAttribute]
+        public string name { get;  set; }
 
-        public string activity { get; private set; }
+        [XmlAttribute]
+        public string activity { get;  set; }
 
-        public string lastBuildStatus { get; private set; }
+        [XmlAttribute]
+        public string lastBuildStatus { get;  set; }
 
-        public string lastBuildLabel { get; private set; }
+        [XmlAttribute]
+        public string lastBuildLabel { get;  set; }
 
-        public string lastBuildTime { get; private set; }
+        [XmlAttribute]
+        public string lastBuildTime { get;  set; }
 
-        public string webUrl { get; private set; }
+        [XmlAttribute]
+        public string webUrl { get;  set; }
 
         public string PipelineName
         {

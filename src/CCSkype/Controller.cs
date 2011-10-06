@@ -55,6 +55,8 @@ namespace CCSkype
             container.Register(Component.For<ISkype>().ImplementedBy(typeof(Skype)));
             container.Register(Component.For<IConfigurationLoader>().ImplementedBy(typeof(ConfigurationLoader)));
             container.Register(Component.For<ILoader>().ImplementedBy(typeof(Loader)));
+            container.Register(Component.For<IChats>().ImplementedBy(typeof(Chats)));
+            container.Register(Component.For<IBuildCollection>().ImplementedBy(typeof(BuildCollection)));
             container.Register(Component.For<IMessengerClient>().ImplementedBy(typeof(MessengerClient)));                                    
             container.Kernel.AddComponentInstance<IUserCollection>(new UserCollection(new SKYPE4COMLib.UserCollection()));            
             var projectwatcher = new Projectwatcher(container.Resolve<ILoader>().GetUserGroups(container.Resolve<IConfigurationLoader>().Load(configuration)));

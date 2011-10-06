@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuration>
-  <Pipeline name="Trunk_QA_Env_PCIDSS">
+  <Pipeline name="Failure-0">
     <users>
       <user skypeName="owainfperry" />
       <user skypeName="owainfperry" />

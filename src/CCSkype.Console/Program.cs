@@ -12,10 +12,14 @@ namespace CCSkype.Console
     {
         static void Main(string[] args)
         {
-            var container = new WindsorContainer();
-            container.Register(AllTypes.Of<ITimer>().FromAssembly(Assembly.GetExecutingAssembly()));
-            var timer = container.Resolve<ITimer>();
-            timer.Start();
+
+            var controller = new Controller();
+            controller.CcTrayUrl = "http://localhost/Cctray.xml";
+            controller.CcTrayUsername = "username";
+            controller.CcTrayPassword = "password";
+            controller.HttpTimeout = 30;
+            controller.Configuration = @"RealUsers.xml";
+            controller.Start();
         }
     }
 }

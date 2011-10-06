@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestData.cs" />
     <Compile Include="End_To_End_Tests.cs" />
     <Compile Include="Mocked_End_To_End_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
