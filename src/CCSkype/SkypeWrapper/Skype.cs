@@ -26,7 +26,7 @@ namespace CCSkype.SkypeWrapper
             //    string command = msg.Body.Remove(0, trigger.Length).ToLower();
 
                 // Send processed message back to skype chat window
-            //    skype.SendMessage(msg.Sender.Handle, nick + " Says: " + ProcessCommand(command));
+                //_skype.SendMessage(msg.Sender.Handle, nick + " Says: " + ProcessCommand(command));
            // }
         }
 

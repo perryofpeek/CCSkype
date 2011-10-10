@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Configuration cctrayUri="someUri" pollTime="30">
-  <Pipeline name="DevEnv01_Deploy_Bff">
-    <users>
-      <user skypeName="testgogroups" />
-      <user skypeName="jonny.plankton" />
-    </users>
-  </Pipeline>
-</Configuration>

@@ -19,7 +19,8 @@ namespace CCSkype.UnitTests
         [Test]
         public void Should_Start_project_watcher()
         {
-            //var controller = new Controller();
+            //var controller = new Controller();            
+            //var stopper = controller.Container.Resolve<IStopper>();            
             //controller.Start();
             //Assert.Fail("Write_this");
         }

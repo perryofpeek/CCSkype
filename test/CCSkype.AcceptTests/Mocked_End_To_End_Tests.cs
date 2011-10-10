@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using CCSkype.Config;
 using CCSkype.SkypeWrapper;
+using Castle.MicroKernel.Registration;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -23,6 +24,9 @@ namespace CCSkype.AcceptTests
         private Loader loader;
         private IChats chats;
         private IBuildCollection buildCollection;
+        private IStopper stopper;
+        private Controller controller;
+        
 
 
         [SetUp]
@@ -40,6 +44,17 @@ namespace CCSkype.AcceptTests
 
             buildCollection = MockRepository.GenerateMock<IBuildCollection>();
             loader = new Loader(messengerClient, buildCollection);
+            stopper = MockRepository.GenerateMock<IStopper>();
+            controller = new Controller();
+            controller.Container.Kernel.AddComponentInstance<ISkype>(skype);
+            controller.Container.Kernel.AddComponentInstance<IUserCollection>(userCollection);
+            controller.Container.Kernel.AddComponentInstance<IStopper>(stopper);
+            controller.CcTrayUrl = "http://localhost/Cctray.xml";
+            controller.CcTrayUsername = "username";
+            controller.CcTrayPassword = "password";
+            controller.HttpTimeout = 30;
+            controller.Configuration = @"RealUsers.xml";           
+
         }
 
         [TearDown]
@@ -49,8 +64,7 @@ namespace CCSkype.AcceptTests
             chat.VerifyAllExpectations();
             skype.VerifyAllExpectations();
             client.VerifyAllExpectations();
-            userCollection.VerifyAllExpectations();
-            
+            userCollection.VerifyAllExpectations();            
         }
 
         [Test]
@@ -128,6 +142,25 @@ namespace CCSkype.AcceptTests
             skype.Expect(x => x.SkypeClient()).Return(client);
             client.Expect(x => x.IsRunning()).Return(true);
             Assert.Throws<UserNotKnowException>(() => loader.GetUserGroups(configurationLoader.Load("UnknownUserPipeline.xml")));
+        }
+
+        [Test]
+        public void with_controller()
+        {
+            string name = "DevEnv01_Deploy_Bff";
+            string message = "DevEnv01_Deploy_Bff has Failure build 23 http://build.london.ttldev.local:8153/go/pipelines/DevEnv01_Deploy_Bff/23/Deployment_Stage_1/1";
+            stopper.Expect(x => x.Stop).Return(false).Repeat.Once();
+            stopper.Expect(x => x.Stop).Return(true).Repeat.Once();                 
+            client.Expect(x => x.IsRunning()).Return(true);            
+            chats.Expect(x => x.Get(name, userCollection)).Return(chat);
+            skype.Expect(x => x.SkypeClient()).Return(client);
+            skype.Expect(x => x.GetUsers()).Return(new List<string> { "owainfperry" });
+            skype.Expect(x => x.GetUser("owainfperry")).IgnoreArguments().Return(user).Repeat.Once();            
+            skype.Expect(x => x.CreateChatMultiple(userCollection, name)).Return(chat);                       
+            chat.Expect(x => x.OpenWindow());            
+            chat.Expect(x => x.SendMessage(message));
+            userCollection.Expect(x => x.Add(user)).IgnoreArguments();            
+            controller.Start();
         }
 
         private Projectwatcher CreateProjectwatcher(string ccTrayXml)

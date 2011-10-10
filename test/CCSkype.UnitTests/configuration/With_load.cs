@@ -17,8 +17,6 @@ namespace CCSkype.UnitTests.configuration
             Assert.That(config.Items[0].users.Length, Is.EqualTo(2));
             Assert.That(config.Items[0].users[0].skypeName, Is.EqualTo("dave"));
             Assert.That(config.Items[0].users[1].skypeName, Is.EqualTo("fish"));
-            Assert.That(config.cctrayUri, Is.EqualTo("someUri"));
-            Assert.That(config.pollTime, Is.EqualTo("30"));
         }
     }
 }

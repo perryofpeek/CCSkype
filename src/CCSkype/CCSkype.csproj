@@ -51,18 +51,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+    <Reference Include="Castle.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Castle.Core\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Windsor, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+    <Reference Include="Castle.Windsor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Castle.Windsor\lib\NET35\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -76,6 +78,9 @@
     <Compile Include="BuildCollection.cs" />
     <Compile Include="CcSkype.cs" />
     <Compile Include="CcTray.cs" />
+    <Compile Include="CmdFactory.cs" />
+    <Compile Include="CommandEntity.cs" />
+    <Compile Include="CommandParser.cs" />
     <Compile Include="Config\configuration.cs" />
     <Compile Include="Config\ConfigurationLoader.cs" />
     <Compile Include="Config\IConfigurationLoader.cs" />
@@ -84,9 +89,13 @@
     <Compile Include="EndpointImpl.cs" />
     <Compile Include="Exceptions\HttpException.cs" />
     <Compile Include="HttpGet.cs" />
-    <Compile Include="IBuildCollection.cs" />
+    <Compile Include="Interfaces\IBuildCollection.cs" />
+    <Compile Include="Interfaces\ICommand.cs" />
+    <Compile Include="Interfaces\ICommandParser.cs" />
+    <Compile Include="Interfaces\IStopper.cs" />
+    <Compile Include="ListCommand.cs" />
     <Compile Include="SkypeWrapper\IChats.cs" />
-    <Compile Include="ILoader.cs" />
+    <Compile Include="Interfaces\ILoader.cs" />
     <Compile Include="Interfaces\ICcTray.cs" />
     <Compile Include="Interfaces\IEndPoint.cs" />
     <Compile Include="Interfaces\IHttpGet.cs" />
@@ -95,8 +104,8 @@
     <Compile Include="Interfaces\IUserGroups.cs" />
     <Compile Include="Interfaces\ISleeper.cs" />
     <Compile Include="Interfaces\IWantToBeRun.cs" />
-    <Compile Include="IProjectwatcher.cs" />
-    <Compile Include="ITimer.cs" />
+    <Compile Include="Interfaces\IProjectwatcher.cs" />
+    <Compile Include="Interfaces\ITimer.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Dto\Pipeline.cs" />
     <Compile Include="Dto\Project.cs" />
@@ -117,6 +126,8 @@
     <Compile Include="SkypeWrapper\UserCollection.cs" />
     <Compile Include="Dto\User.cs" />
     <Compile Include="Sleeper.cs" />
+    <Compile Include="StartWatchCommand.cs" />
+    <Compile Include="Stopper.cs" />
     <Compile Include="Timer.cs" />
     <Compile Include="UserGroup.cs" />
     <Compile Include="UserGroups.cs" />
@@ -148,6 +159,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

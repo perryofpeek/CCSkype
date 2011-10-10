@@ -28,7 +28,7 @@ namespace CCSkype.UnitTests.skypeMessenger
             ccTray.Expect(x => x.FailedPipelines).Return(projects);
             ccTray.Expect(x => x.Load());
             projectWatcher.Expect(x => x.Message(projects));
-            var skypeMessenger = new SkypeMessenger(ccTray,projectWatcher,message);
+            var skypeMessenger = new SkypeMessenger(ccTray,projectWatcher);
             //Test
             skypeMessenger.Execute();
 

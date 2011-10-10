@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 // 
@@ -20,53 +22,58 @@ using System.Xml.Serialization;
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
-public partial class Configuration {
-
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string cctrayUri
-    {
-        get
-        {
-            return this._cctrayUri;
-        }
-        set
-        {
-            this._cctrayUri = value;
-        }
-    }
-
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string pollTime
-    {
-        get
-        {
-            return this._pollTime;
-        }
-        set
-        {
-            this._pollTime = value;
-        }
-    }
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
+public partial class Configuration
+{
 
 
     private ConfigurationPipeline[] itemsField;
-    
+
     private string _cctrayUri;
     private string _pollTime;
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("Pipeline", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public ConfigurationPipeline[] Items {
-        get {
+    [System.Xml.Serialization.XmlElementAttribute("Pipeline", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public ConfigurationPipeline[] Items
+    {
+        get
+        {
             return this.itemsField;
         }
-        set {
+        set
+        {
             this.itemsField = value;
         }
+    }
+
+    public void Add(string pipeline, string skypename)
+    {
+        var temp = new List<ConfigurationPipeline>();
+        var added = false;
+        foreach (ConfigurationPipeline item in Items)
+        {
+            if(item.name == pipeline)
+            {
+                var shouldAdd = true;
+                foreach (var user in item.users)
+                {
+                    if(user.skypeName == skypename)
+                    {
+                        shouldAdd = false;
+                    }
+                }
+                if(shouldAdd)
+                {
+                    var lstTest = new List<ConfigurationPipelineUsersUser>(item.users);
+                    lstTest.Add(new ConfigurationPipelineUsersUser() {skypeName = item.name});
+                    item.users = lstTest.ToArray();
+                }                                
+            }
+            temp.Add(item);
+        }
+
+        temp.Add(new ConfigurationPipeline() {name = pipeline,});
     }
 }
 
@@ -75,32 +82,39 @@ public partial class Configuration {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-public partial class ConfigurationPipeline {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class ConfigurationPipeline
+{
+
     private ConfigurationPipelineUsersUser[] usersField;
-    
+
     private string nameField;
-    
+
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("user", typeof(ConfigurationPipelineUsersUser), Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
-    public ConfigurationPipelineUsersUser[] users {
-        get {
+    [System.Xml.Serialization.XmlArrayAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("user", typeof(ConfigurationPipelineUsersUser), Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = false)]
+    public ConfigurationPipelineUsersUser[] users
+    {
+        get
+        {
             return this.usersField;
         }
-        set {
+        set
+        {
             this.usersField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string name {
-        get {
+    public string name
+    {
+        get
+        {
             return this.nameField;
         }
-        set {
+        set
+        {
             this.nameField = value;
         }
     }
@@ -111,18 +125,22 @@ public partial class ConfigurationPipeline {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-public partial class ConfigurationPipelineUsersUser {
-    
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class ConfigurationPipelineUsersUser
+{
+
     private string skypeNameField;
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string skypeName {
-        get {
+    public string skypeName
+    {
+        get
+        {
             return this.skypeNameField;
         }
-        set {
+        set
+        {
             this.skypeNameField = value;
         }
     }

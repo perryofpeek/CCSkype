@@ -82,6 +82,10 @@
     <Compile Include="CCSkype\With_process.cs" />
     <Compile Include="CCTray\With_Load.cs" />
     <Compile Include="chats\With_Get.cs" />
+    <Compile Include="CommandFactory\With_Create.cs" />
+    <Compile Include="CommandFactory\With_ParseCommand.cs" />
+    <Compile Include="configuration\ConfigTest.cs" />
+    <Compile Include="configuration\With_AddUser.cs" />
     <Compile Include="configuration\With_load.cs" />
     <Compile Include="controller\With_Start.cs" />
     <Compile Include="endPoint\With_GetXml.cs" />
