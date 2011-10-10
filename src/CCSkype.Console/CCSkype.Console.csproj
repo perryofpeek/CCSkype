@@ -129,7 +129,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CCSkype.dll" />
-    <None Include="packages.config" />
     <None Include="Resources\Castle.Windsor.dll" />
     <None Include="Resources\Castle.Core.dll" />
     <None Include="Resources\Skype4COM.dll" />
