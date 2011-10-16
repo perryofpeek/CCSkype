@@ -25,7 +25,7 @@ namespace CCSkype.UnitTests.skypeMessenger
             var ccTray = MockRepository.GenerateMock<ICcTray>();
             var projectWatcher = MockRepository.GenerateMock<IProjectwatcher>();
             var projects = new List<Project>();
-            ccTray.Expect(x => x.FailedPipelines).Return(projects);
+            ccTray.Expect(x => x.FailedPipelines()).Return(projects);
             ccTray.Expect(x => x.Load());
             projectWatcher.Expect(x => x.Message(projects));
             var skypeMessenger = new SkypeMessenger(ccTray,projectWatcher);

@@ -84,13 +84,18 @@
     <Compile Include="chats\With_Get.cs" />
     <Compile Include="CommandFactory\With_Create.cs" />
     <Compile Include="CommandFactory\With_ParseCommand.cs" />
-    <Compile Include="configuration\ConfigTest.cs" />
-    <Compile Include="configuration\With_AddUser.cs" />
-    <Compile Include="configuration\With_load.cs" />
+    <Compile Include="Commands\Command_Help\With_execute.cs" />
+    <Compile Include="Configuration_Repository\ConfigTest.cs" />
+    <Compile Include="Configuration_Repository\With_AddUser.cs" />
+    <Compile Include="Configuration_Repository\With_load.cs" />
+    <Compile Include="Configuration_Repository\With_Make.cs" />
+    <Compile Include="Configuration_Repository\With_Save.cs" />
     <Compile Include="controller\With_Start.cs" />
     <Compile Include="endPoint\With_GetXml.cs" />
+    <Compile Include="Message_Processor\With_Process.cs" />
     <Compile Include="project\With_GetUniqueKey.cs" />
     <Compile Include="project\With_GetMessage.cs" />
+    <Compile Include="Commands\Command_List\With_execute.cs" />
     <Compile Include="With_Request.cs" />
     <Compile Include="Loader\With_Load.cs" />
     <Compile Include="Messenger_Client\With_AllKnownUsers.cs" />
@@ -110,6 +115,7 @@
     <Compile Include="project\With_Project_constructor.cs" />
     <Compile Include="User_Groups\With_IsMonitoring.cs" />
     <Compile Include="With_ShouldAlert.cs" />
+    <Compile Include="Xml_Document\With_Save.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SKYPE4COMLib">
@@ -138,9 +144,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helper\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>

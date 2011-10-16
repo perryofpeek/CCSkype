@@ -12,7 +12,7 @@ namespace CCSkype
         public void Process()
         {
             _cctray.Load();
-            var failures = _cctray.FailedPipelines;
+            var failures = _cctray.FailedPipelines();
             foreach (var project in failures)
             {
                 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CCSkype.Commands;
 using CCSkype.Config;
 using CCSkype.SkypeWrapper;
 using Castle.MicroKernel.Registration;
@@ -58,6 +59,11 @@ namespace CCSkype
             Container.Register(Component.For<IChats>().ImplementedBy(typeof(Chats)));
             Container.Register(Component.For<IBuildCollection>().ImplementedBy(typeof(BuildCollection)));
             Container.Register(Component.For<IMessengerClient>().ImplementedBy(typeof(MessengerClient)));
+            Container.Register(Component.For<IMessageProcessor>().ImplementedBy(typeof(MessageProcessor)));
+            Container.Register(Component.For<ICmdFactory>().ImplementedBy(typeof(CmdFactory)));
+            Container.Register(Component.For<ICommandParser>().ImplementedBy(typeof(CommandParser)));
+
+             
             if (!Container.Kernel.HasComponent("CCSkype.SkypeWrapper.IUserCollection"))
             {
                 Container.Kernel.AddComponentInstance<IUserCollection>(new UserCollection(new SKYPE4COMLib.UserCollection()));                

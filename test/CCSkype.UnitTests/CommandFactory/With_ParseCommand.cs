@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using CCSkype.Commands;
+using NUnit.Framework;
 
 namespace CCSkype.UnitTests.CommandFactory
 {

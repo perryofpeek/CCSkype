@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using CCSkype.Commands;
 using CCSkype.Config;
 using CCSkype.SkypeWrapper;
 using NUnit.Framework;
@@ -42,7 +43,7 @@ namespace CCSkype.AcceptTests
         public void As_A_user_I_want_to_have_a_message_when_a_build_fails_so_that_I_can_fix_the_build()
         {
             var message = "someMessage - " + Guid.NewGuid().ToString();
-            var skype = new Skype();
+            var skype = new Skype(makeMessageProcessor());
             var chats = new Chats(skype);
             var configurationLoader = new ConfigurationLoader();
             var loader = new Loader(new MessengerClient(skype, new UserCollection(new SKYPE4COMLib.UserCollection()), chats), new BuildCollection());
@@ -59,15 +60,19 @@ namespace CCSkype.AcceptTests
             ccTray.Load();
 
             //Test
-            projectwatcher.Message(ccTray.FailedPipelines);
+            projectwatcher.Message(ccTray.FailedPipelines());
         }
 
-        
+        private IMessageProcessor makeMessageProcessor()
+        {
+            return new MessageProcessor(new CmdFactory(new CommandParser(),new CcTray(new EndpointImpl(new HttpGet(1, "a", "b"), ""))));
+        }
+
 
         [Test]
         public void As_A_user_I_want_to_two_messages_in_the_same_group_window_when_a_build_fails_so_that_I_can_fix_the_builds_when_each_fails()
-        {           
-            var skype = new Skype();
+        {
+            var skype = new Skype(makeMessageProcessor());
             var chats = new Chats(skype);
             var configurationLoader = new ConfigurationLoader();
             var loader = new Loader(new MessengerClient(skype, new UserCollection(new SKYPE4COMLib.UserCollection()), chats),new BuildCollection());
@@ -84,21 +89,21 @@ namespace CCSkype.AcceptTests
             ccTray.Load();
 
             //Test
-            projectwatcher.Message(ccTray.FailedPipelines);
+            projectwatcher.Message(ccTray.FailedPipelines());
         
             var p = new Project("Trunk_QA_Env_PCIDSS :: Deployment_to_QA_PCIDSS1", "Failed", "Failure", "1.2.3.4","2011-09-23T16:59:18", "web");
-            ccTray.FailedPipelines.Add(p);
-            projectwatcher.Message(ccTray.FailedPipelines);
+            ccTray.FailedPipelines().Add(p);
+            projectwatcher.Message(ccTray.FailedPipelines());
             
-            projectwatcher.Message(ccTray.FailedPipelines);
+            projectwatcher.Message(ccTray.FailedPipelines());
         }
 
 
 
         [Test]
         public void As_A_user_I_want_to_one_message_in_the_same_group_window_when_a_build_fails_so_that_I_can_fix_the_build()
-        {           
-            var skype = new Skype();
+        {
+            var skype = new Skype(makeMessageProcessor());
             var chats = new Chats(skype);
             var configurationLoader = new ConfigurationLoader();
             var loader = new Loader(new MessengerClient(skype, new UserCollection(new SKYPE4COMLib.UserCollection()), chats),new BuildCollection());
@@ -115,9 +120,9 @@ namespace CCSkype.AcceptTests
             ccTray.Load();
 
             //Test
-            projectwatcher.Message(ccTray.FailedPipelines);
-            projectwatcher.Message(ccTray.FailedPipelines);
-            projectwatcher.Message(ccTray.FailedPipelines);
+            projectwatcher.Message(ccTray.FailedPipelines());
+            projectwatcher.Message(ccTray.FailedPipelines());
+            projectwatcher.Message(ccTray.FailedPipelines());
         }
 
 
@@ -125,7 +130,7 @@ namespace CCSkype.AcceptTests
         [Test]
         public void As_an_unknown_skype_user_I_want_to_have_an_error_message_when_configuration_is_loaded()
         {
-            var skype = new Skype();
+            var skype = new Skype(makeMessageProcessor());
             var chats = new Chats(skype);
             var configurationLoader = new ConfigurationLoader();
             var loader = new Loader(new MessengerClient(skype, new UserCollection(new SKYPE4COMLib.UserCollection()), chats),new BuildCollection());

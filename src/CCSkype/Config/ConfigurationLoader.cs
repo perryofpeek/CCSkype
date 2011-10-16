@@ -13,5 +13,13 @@ namespace CCSkype.Config
             sw.Close();
             return config;
         }
+
+        public void Save(Configuration configuration, string path)
+        {
+            var xmlSerializer = new XmlSerializer(typeof(Configuration));
+            var sw = new StreamWriter(path);
+            xmlSerializer.Serialize(sw, configuration);
+            sw.Close();            
+        }
     }
 }

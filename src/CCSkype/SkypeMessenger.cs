@@ -4,7 +4,13 @@ namespace CCSkype
 {
     public class SkypeMessenger : IWantToBeRun
     {
-        private readonly ICcTray _ccTray;
+
+        public static ICcTray CcTray
+        {
+            get { return _ccTray; }
+        }
+
+        private static ICcTray _ccTray;
         private readonly IProjectwatcher _projectwatcher;        
 
         public SkypeMessenger(ICcTray ccTray, IProjectwatcher projectwatcher)
@@ -16,7 +22,7 @@ namespace CCSkype
         public void Execute()
         {
             _ccTray.Load();
-            _projectwatcher.Message(_ccTray.FailedPipelines);
+            _projectwatcher.Message(_ccTray.FailedPipelines());
         }
     }
 }

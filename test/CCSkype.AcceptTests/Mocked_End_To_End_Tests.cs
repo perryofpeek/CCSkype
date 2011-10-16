@@ -100,7 +100,7 @@ namespace CCSkype.AcceptTests
             ICcTray ccTray = new CcTray(new EndpointImpl(httpGet, url));
             ccTray.Load();
             //Test
-            projectwatcher.Message(ccTray.FailedPipelines);
+            projectwatcher.Message(ccTray.FailedPipelines());
         }
 
         [Test]
@@ -131,8 +131,8 @@ namespace CCSkype.AcceptTests
             ccTray.Load();
             //ccTray.FailedPipelines.Add(new Project("a1", "Failed", "broken", "label", "10:20", "a.b"));
             //Test
-            projectwatcher.Message(ccTray.FailedPipelines);
-            projectwatcher.Message(ccTray.FailedPipelines);
+            projectwatcher.Message(ccTray.FailedPipelines());
+            projectwatcher.Message(ccTray.FailedPipelines());
         }
 
         [Test]

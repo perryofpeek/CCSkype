@@ -1,3 +1,5 @@
+using CCSkype.Commands;
+
 namespace CCSkype
 {
     public interface ICommandParser

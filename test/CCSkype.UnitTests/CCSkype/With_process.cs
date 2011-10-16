@@ -21,7 +21,7 @@ namespace CCSkype.UnitTests.CCSkype
                      
             var ccTray = MockRepository.GenerateMock<ICcTray>();
             ccTray.Expect(x => x.Load());
-            ccTray.Expect(x => x.FailedPipelines).Return(failedProjectList);
+            ccTray.Expect(x => x.FailedPipelines()).Return(failedProjectList);
             
             var ccSkype = new CcSkype(ccTray);
             ccSkype.Process();

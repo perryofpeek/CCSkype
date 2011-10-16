@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using SKYPE4COMLib;
 
@@ -6,30 +5,43 @@ namespace CCSkype.SkypeWrapper
 {
     public class Skype : ISkype
     {
-        private SKYPE4COMLib.Skype _skype;
+        private readonly SKYPE4COMLib.Skype _skype;
+        private readonly IMessageProcessor _messageProcessor;
 
-        public Skype()
+
+        public Skype(IMessageProcessor messageProcessor )
         {
+            _messageProcessor = messageProcessor;
             _skype = new SKYPE4COMLib.Skype();
-            _skype.MessageStatus += new _ISkypeEvents_MessageStatusEventHandler(skype_MessageStatus);
+            UseSkypeProtocolSeven();          
+            AttachMessageProcessorHandler();
 
-            Console.WriteLine("MAKE SKYPE");
         }
-
-        private void skype_MessageStatus(ChatMessage msg, TChatMessageStatus status)
+     
+        private void MessageProcessor(ChatMessage msg, TChatMessageStatus status)
         {
-            Console.WriteLine(msg.Body);
-            // Proceed only if the incoming message is a trigger
-            //if (msg.Body.IndexOf(trigger) >= 0)
-            //{
-                // Remove trigger string and make lower case
-            //    string command = msg.Body.Remove(0, trigger.Length).ToLower();
-
-                // Send processed message back to skype chat window
-                //_skype.SendMessage(msg.Sender.Handle, nick + " Says: " + ProcessCommand(command));
-           // }
+            if (!IsLocalUser(msg)) return;
+            var response = _messageProcessor.Process(msg.Body);
+            if(response.Success)
+            {
+                _skype.SendMessage(msg.Sender.Handle, response.Message);     
+            }
         }
 
+        private void AttachMessageProcessorHandler()
+        {
+            _skype.MessageStatus += MessageProcessor;
+        }
+
+        private void UseSkypeProtocolSeven()
+        {
+            _skype.Attach(7, false);
+        }
+
+        private bool IsLocalUser(IChatMessage msg)
+        {
+            return msg.Sender.Handle != _skype.CurrentUser.Handle;
+        }
 
 
         public IClient SkypeClient()
@@ -47,7 +59,7 @@ namespace CCSkype.SkypeWrapper
 
         public IUser GetUser(string username)
         {
-            return new User(_skype.get_User(username));
+            return new User(_skype.User[username]);
         }
 
         public List<string> GetUsers()

@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using CCSkype.Commands;
+using NUnit.Framework;
 
 namespace CCSkype.UnitTests.CommandFactory
 {
@@ -19,7 +20,7 @@ namespace CCSkype.UnitTests.CommandFactory
         [Test]
         public void Should_Create_list_command()
         {
-            var c = new CmdFactory(new CommandParser());
+            var c = new CmdFactory(new CommandParser(), null);
             var cmd = c.Create("List");
             Assert.That(cmd, Is.InstanceOf<ListCommand>());
         }
@@ -30,7 +31,7 @@ namespace CCSkype.UnitTests.CommandFactory
             var param1 = "param1";
             var param2 = "param2";
 
-            var c = new CmdFactory(new CommandParser());
+            var c = new CmdFactory(new CommandParser(), null);
             var cmd = c.Create("StartWatch " + param1 + " " + param2);
             Assert.That(cmd, Is.InstanceOf<StartWatchCommand>());
             Assert.That(cmd.CommandEntity.Parameter[0], Is.EqualTo(param1));

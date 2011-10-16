@@ -78,9 +78,9 @@
     <Compile Include="BuildCollection.cs" />
     <Compile Include="CcSkype.cs" />
     <Compile Include="CcTray.cs" />
-    <Compile Include="CmdFactory.cs" />
-    <Compile Include="CommandEntity.cs" />
-    <Compile Include="CommandParser.cs" />
+    <Compile Include="Commands\CmdFactory.cs" />
+    <Compile Include="Commands\CommandEntity.cs" />
+    <Compile Include="Commands\CommandParser.cs" />
     <Compile Include="Config\configuration.cs" />
     <Compile Include="Config\ConfigurationLoader.cs" />
     <Compile Include="Config\IConfigurationLoader.cs" />
@@ -88,12 +88,20 @@
     <Compile Include="Dto\IProject.cs" />
     <Compile Include="EndpointImpl.cs" />
     <Compile Include="Exceptions\HttpException.cs" />
+    <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="HttpGet.cs" />
+    <Compile Include="Commands\ICmdFactory.cs" />
+    <Compile Include="IFile.cs" />
     <Compile Include="Interfaces\IBuildCollection.cs" />
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Interfaces\ICommandParser.cs" />
     <Compile Include="Interfaces\IStopper.cs" />
-    <Compile Include="ListCommand.cs" />
+    <Compile Include="ConfigurationRepository.cs" />
+    <Compile Include="ISerialiseConfiguration.cs" />
+    <Compile Include="Commands\ListCommand.cs" />
+    <Compile Include="MessageProcessor.cs" />
+    <Compile Include="SkypeWrapper\IChat_Message.cs" />
+    <Compile Include="SkypeWrapper\Chat_Message.cs" />
     <Compile Include="SkypeWrapper\IChats.cs" />
     <Compile Include="Interfaces\ILoader.cs" />
     <Compile Include="Interfaces\ICcTray.cs" />
@@ -115,9 +123,12 @@
     <Compile Include="SkypeWrapper\Chats.cs" />
     <Compile Include="SkypeWrapper\IChat.cs" />
     <Compile Include="SkypeWrapper\IClient.cs" />
+    <Compile Include="IMessageProcessor.cs" />
+    <Compile Include="IResponse.cs" />
     <Compile Include="SkypeWrapper\ISkype.cs" />
     <Compile Include="SkypeWrapper\IUser.cs" />
     <Compile Include="SkypeWrapper\IUserCollection.cs" />
+    <Compile Include="Response.cs" />
     <Compile Include="SkypeWrapper\User.cs" />
     <Compile Include="SkypeWrapper\Skype.cs" />
     <Compile Include="SkypeWrapper\Client.cs" />
@@ -126,12 +137,14 @@
     <Compile Include="SkypeWrapper\UserCollection.cs" />
     <Compile Include="Dto\User.cs" />
     <Compile Include="Sleeper.cs" />
-    <Compile Include="StartWatchCommand.cs" />
+    <Compile Include="Commands\StartWatchCommand.cs" />
     <Compile Include="Stopper.cs" />
     <Compile Include="Timer.cs" />
+    <Compile Include="Commands\UnknownCommand.cs" />
     <Compile Include="UserGroup.cs" />
     <Compile Include="UserGroups.cs" />
     <Compile Include="Exceptions\UserNotKnowException.cs" />
+    <Compile Include="XmlDocumentImpl.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SKYPE4COMLib">

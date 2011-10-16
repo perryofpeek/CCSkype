@@ -41,6 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -91,7 +92,7 @@
     <ProjectReference Include="..\CCSkype\CCSkype.csproj">
       <Project>{C67D3F92-072A-4405-9AD4-B97E27AA42ED}</Project>
       <Name>CCSkype</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -128,7 +129,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CCSkype.dll" />
     <None Include="Resources\Castle.Windsor.dll" />
     <None Include="Resources\Castle.Core.dll" />
     <None Include="Resources\Skype4COM.dll" />
