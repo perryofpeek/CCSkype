@@ -26,7 +26,7 @@ namespace CCSkype.UnitTests.Configuration_Repository
             var configurationLoader = new ConfigurationLoader();
             configurationLoader.Save(config, path);
             var xml = File.ReadAllText(path);
-            Assert.That(xml, Is.EqualTo("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<Configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />"));
+            Assert.That(xml, Is.EqualTo("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<Configuration xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" />"));
         }
     }
 }

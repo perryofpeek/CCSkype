@@ -31,6 +31,11 @@ public partial class Configuration
 
     public void Add(string pipeline, string skypename)
     {
+        //if(Items == null)
+        //{
+        //    Items = new ConfigurationPipeline[0];
+        //}
+
         var temp = new List<ConfigurationPipeline>();
         var added = false;
         foreach (ConfigurationPipeline item in Items)
